@@ -43,11 +43,10 @@ import {
         index = initialTrack.index;
         secOffset = initialTrack.secOffset;
       }
-
+      // get track
       let trackId = playlist[index];
       let track = trackTbl[trackId];
-
-      //check if trackId is the same as array index
+      //check if trackTbl[...].trackId is the same as Array index
       if (trackId != track.trackId) {
         console.error(
           "TYPO ERROR in TRACKTABLE DATA:: check for typo in trackTbl[" +
@@ -59,7 +58,7 @@ import {
             "."
         );
       }
-
+      // QUEUE audio
       audio.src = track.src + "#t=" + secOffset;
       var dur = getTrackDuration(index) - secOffset * 1000;
       if (audio === audio1) {
@@ -71,17 +70,22 @@ import {
           playNextTrack(audio1);
         }, dur);
       }
-      audio.play();
-      if (audio === audio1) {
-        console.log("index:" + index, track.src, "(audio1)");
-      } else {
-        console.log("index:" + index, track.src, "(audio2)");
-      }
+      audio.play(); // play audio
+
+      // // TEST LOGGING
+      // if (audio === audio1) {
+      //   console.log("index:" + index, track.src, "(audio1)");
+      // } else {
+      //   console.log("index:" + index, track.src, "(audio2)");
+      // }
+
+      // ---------
       // if song
+      // ---------
       if (track.songId != null) {
         let song = songTbl[track.songId];
         let artist = artistTbl[song.artistId];
-        // check if songTbl songId matches the Array index
+        // check if songTbl[...].songId matches the Array index
         if (track.songId != song.songId) {
           console.error(
             "TYPO ERROR in SONGTABLE DATA:: check for typo in songTbl[" +
@@ -95,7 +99,8 @@ import {
               "."
           );
         }
-        // check if artist names match in songTbl and artistTbl
+        // check if artist names match in songTbl and artistTbl,
+        // is this is necessary? maybe have name in one spot?
         if (song.artist != artist.name) {
           console.error(
             "TYPO ERROR in songTbl or artistTbl:: song.artist= " +
@@ -104,6 +109,21 @@ import {
               artist.name
           );
         }
+        // check if artistTbl[...].artistId matches Array index
+        if (song.artistId != artist.artistId) {
+          console.error(
+            "TYPO ERROR in ARTISTTABLE DATA:: check for typo in artistTbl[" +
+              song.artistId +
+              "].artistId. artistTbl[" +
+              song.artistId +
+              "].artistId is " +
+              artist.artistId +
+              " and should be " +
+              song.artistId +
+              "."
+          );
+        }
+
         //TODO Display song data
         console.log(
           "DISPLAY SONG INFO:",
@@ -114,19 +134,57 @@ import {
           artist.headshots
         );
       }
+
+      // --------
       // if dj
+      // --------
       if (track.djId != null) {
         let dj = djTbl[track.djId];
+        // check if djTbl[...].djId matches Array index
+        if (track.djId != dj.djId) {
+          console.error(
+            "TYPO ERROR in DJTABLE DATA:: check for typo in djTbl[" +
+              track.djId +
+              "].djId. djTbl[" +
+              track.djId +
+              "].djId is " +
+              dj.djId +
+              " and should be " +
+              track.djId +
+              ""
+          );
+        }
+
         //TODO Display dj data
         console.log("DISPLAY DJ INFO:", dj.name, dj.headshots);
       }
+
+      // -----------
       // if station
+      // -----------
       if (track.stationId != null) {
         let station = stationTbl[track.stationId];
+        //check if stationTbl[...].stationId matches Array index
+        if (track.stationId != station.stationId) {
+          console.error(
+            "TYPO ERROR in STATIONTABLE DATA:: check for typo in stationTbl[" +
+              track.stationId +
+              "].stationId. stationTbl[" +
+              track.stationId +
+              "].stationId is " +
+              station.stationId +
+              " and should be " +
+              track.stationId +
+              "."
+          );
+        }
         // TODO Display station data
         console.log("DISPLAY STATION INFO:", station.name, station.photos);
       }
+
+      // --------
       // if news
+      // --------
       if (track.type === "news") {
         console.log("DISPLAY::" + newsImage);
       }
