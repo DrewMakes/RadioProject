@@ -50,7 +50,7 @@ import {
       //check if trackId is the same as array index
       if (trackId != track.trackId) {
         console.error(
-          "TYPO ERROR in TABLE DATA:: check for typo in trackTbl[" +
+          "TYPO ERROR in TRACKTABLE DATA:: check for typo in trackTbl[" +
             trackId +
             "].trackId 'trackId' is " +
             track.trackId +
@@ -81,6 +81,20 @@ import {
       if (track.songId != null) {
         let song = songTbl[track.songId];
         let artist = artistTbl[song.artistId];
+        // check if songTbl songId matches the Array index
+        if (track.songId != song.songId) {
+          console.error(
+            "TYPO ERROR in SONGTABLE DATA:: check for typo in songTbl[" +
+              track.songId +
+              "] 'songTbl[" +
+              track.songId +
+              "].songId' is " +
+              song.songId +
+              " and should be " +
+              track.songId +
+              "."
+          );
+        }
         // check if artist names match in songTbl and artistTbl
         if (song.artist != artist.name) {
           console.error(
@@ -112,6 +126,7 @@ import {
         // TODO Display station data
         console.log("DISPLAY STATION INFO:", station.name, station.photos);
       }
+      // if news
       if (track.type === "news") {
         console.log("DISPLAY::" + newsImage);
       }
