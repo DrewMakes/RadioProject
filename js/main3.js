@@ -126,7 +126,7 @@
         surveyImagesForToday.src.length >= 1
           ? //choose a random survey image from src array
             console.log(
-              "SURVEY IMAGE: ",
+              "RANDOM SURVEY IMAGE: ",
               getRandomArrayItem(surveyImagesForToday.src)
             )
           : console.error("there are no survey images for this day");
@@ -166,13 +166,19 @@
         if (songImages != undefined) {
           // if sleeves array has a photo
           songImages.srcSleeve.length >= 1
-            ? console.log("SLEEVE IMAGE(S)", songImages.srcSleeve)
+            ? console.log(
+                "RANDOM SLEEVE IMAGE",
+                getRandomArrayItem(songImages.srcSleeve)
+              )
             : console.error(
                 " no sleeve images in songImageTbl[...].songId=" + track.songId
               );
           // if disc array has a photo
           songImages.srcDisc.length >= 1
-            ? console.log("DISK IMAGE(S)", songImages.srcDisc)
+            ? console.log(
+                "RANDOM DISK IMAGE",
+                getRandomArrayItem(songImages.srcDisc)
+              )
             : console.error(
                 "no disc images in songImageTbl[...].songId=" + track.songId
               );
