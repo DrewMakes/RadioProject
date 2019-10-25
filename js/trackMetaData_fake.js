@@ -77,11 +77,11 @@ var artistImageTbl = [
   // these pics can be shown when any song of theirs is playing
   {
     name: "King Floyd",
-    src: [""]
+    src: []
   },
   {
     name: "Badfinger",
-    src: [""]
+    src: []
   },
   {
     name: "Freda Payne",
@@ -92,7 +92,7 @@ var artistImageTbl = [
   },
   {
     name: "Simon & Garfunkel",
-    src: [""]
+    src: []
   },
   {
     name: "Van Morrison",

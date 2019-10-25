@@ -207,7 +207,42 @@
       //-----------------------------------------
       // print any artist src paths
       //-----------------------------------------
+      if (track.songId != null) {
+        var song = getSong(track.songId);
+        // display song title and artist
+        var artistImages = artistImageTbl.filter(
+          artist => artist.name === song.artist
+        );
+        if (artistImages.length > 1) {
+          console.error(
+            "TYPO ERROR:: artistImageTbl[...] has two objects with the same artist name=" +
+              song.artist +
+              " program only uses the first object, all others ignored."
+          );
+        }
 
+        // if image objects exists, grab (hopefully) the only item in array
+        artistImages =
+          artistImages.length >= 1
+            ? artistImages[0]
+            : console.error(
+                "no artist objects for this track. artistImageTbl[...].name=" +
+                  song.artist +
+                  " doesn't exist"
+              );
+        // if artist object exists
+        if (artistImages != undefined) {
+          // if src array has a photo
+          artistImages.src.length >= 1
+            ? console.log(
+                "RANDOM ARTIST IMAGE:",
+                getRandomArrayItem(artistImages.src)
+              )
+            : console.error(
+                " no artist images in artistImageTbl[...].name=" + song.artist
+              );
+        }
+      }
       //-----------------------------------------
       // print any dj src paths
       //-----------------------------------------
