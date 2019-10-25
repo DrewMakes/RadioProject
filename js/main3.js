@@ -78,6 +78,25 @@
     };
 
     function displayImages(track) {
+      var getSong = function(trackSongId) {
+        var song = songTbl.filter(song => song.songId === track.songId);
+        // Oops, songTbl[...].songId is used twice resulting in an array with 2 or more song objects
+        if (song.length > 1) {
+          console.error(
+            "TYPO ERROR:: songTbl[...] has two song objects with the same songId=" +
+              track.songId +
+              " program only uses the first object, all others ignored."
+          );
+        }
+        // if song object(s) exist, return (hopefully) the only song object in array
+        return song.length >= 1
+          ? song[0]
+          : console.error(
+              "songTbl is missing an object in its array. songTbl[...].songId=" +
+                track.songId +
+                " doesn't exist"
+            );
+      };
       //-----------------------------------------
       // print any survey src paths
       //-----------------------------------------
@@ -105,7 +124,7 @@
         surveyImg => surveyImg.date === currentDate
       );
 
-      // Oops, songImageTbl[...].songId is used twice resulting in an array with 2 or more objects
+      // Oops, surveyImageTbl[...].date is used twice resulting in an array with 2 or more objects
       // Maybe a better way to do this is a unique Id check on all the data at once rather than real-time errors like this. Dunno
       if (surveyImagesForToday.length > 1) {
         console.error(
@@ -114,7 +133,7 @@
             " program only uses the first day found, all others ignored."
         );
       }
-      // if surveyImagesForToday objects exists, grab (hopefully) the only item in array
+      // if a surveyImagesForToday object(s) exist, grab (hopefully) the only item in array
       var surveyImagesForToday =
         surveyImagesForToday.length >= 1
           ? surveyImagesForToday[0]
@@ -131,13 +150,13 @@
             )
           : console.error("there are no survey images for this day");
       }
-      // console.log(surveyImage);
 
       //-----------------------------------------
       // print any song disc & sleeve src paths
       //-----------------------------------------
+
       if (track.songId != null) {
-        var song = songTbl.filter(song => song.songId === track.songId)[0];
+        var song = getSong(track.songId);
         // display song title and artist
         console.log("TITLE: " + song.title, "ARTIST: " + song.artist);
         // query song images
@@ -149,12 +168,12 @@
         if (songImages.length > 1) {
           console.error(
             "TYPO ERROR:: songImageTbl[...] has two objects with the same songId=" +
-              songImages[0].songId +
+              track.songId +
               " program only uses the first object, all others ignored."
           );
         }
         // if image objects exists, grab (hopefully) the only item in array
-        var songImages =
+        songImages =
           songImages.length >= 1
             ? songImages[0]
             : console.error(
