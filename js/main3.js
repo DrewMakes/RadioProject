@@ -127,9 +127,7 @@
           ? //choose a random survey image from src array
             console.log(
               "SURVEY IMAGE: ",
-              surveyImagesForToday.src[
-                Math.floor(Math.random() * surveyImagesForToday.src.length)
-              ]
+              getRandomArrayItem(surveyImagesForToday.src)
             )
           : console.error("there are no survey images for this day");
       }
@@ -228,6 +226,10 @@
     };
 
     playNextTrack(audio1); // Start looping function
+  };
+
+  var getRandomArrayItem = function(array) {
+    return array[Math.floor(Math.random() * array.length)];
   };
 
   var button = document.getElementById("playButton");
