@@ -81,6 +81,59 @@
       //-----------------------------------------
       // print any survey src paths
       //-----------------------------------------
+      var monthNames = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ];
+
+      var currentDate = new Date();
+      currentDate =
+        monthNames[currentDate.getMonth()] +
+        " " +
+        currentDate.getDate().toString();
+      var surveyImagesForToday = surveyImageTbl.filter(
+        surveyImg => surveyImg.date === currentDate
+      );
+
+      // Oops, songImageTbl[...].songId is used twice resulting in an array with 2 or more objects
+      // Maybe a better way to do this is a unique Id check on all the data at once rather than real-time errors like this. Dunno
+      if (surveyImagesForToday.length > 1) {
+        console.error(
+          "TYPO ERROR:: surveyImageTbl[...] has two objects with the same date=" +
+            currentDate +
+            " program only uses the first day found, all others ignored."
+        );
+      }
+      // if surveyImagesForToday objects exists, grab (hopefully) the only item in array
+      var surveyImagesForToday =
+        surveyImagesForToday.length >= 1
+          ? surveyImagesForToday[0]
+          : console.error("today's date has no object in surveyImageTbl");
+
+      // if survey image day object exists
+      if (surveyImagesForToday != undefined) {
+        // if day object's array of survey images has images
+        surveyImagesForToday.src.length >= 1
+          ? //choose a random survey image from src array
+            console.log(
+              "SURVEY IMAGE: ",
+              surveyImagesForToday.src[
+                Math.floor(Math.random() * surveyImagesForToday.src.length)
+              ]
+            )
+          : console.error("there are no survey images for this day");
+      }
+      // console.log(surveyImage);
 
       //-----------------------------------------
       // print any song disc & sleeve src paths
