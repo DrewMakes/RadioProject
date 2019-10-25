@@ -68,6 +68,7 @@
         }, dur);
       }
       audio.play();
+      console.log("////////////////////////////////");
       // if (audio === audio1) {
       //   console.log("index:" + index, track.trackId, track.src, "(audio1)");
       // } else {
@@ -177,7 +178,7 @@
           songImages.length >= 1
             ? songImages[0]
             : console.error(
-                "no song images for this track. songImageTbl[...].songId=" +
+                "no song DISK or SLEEVE images for this track. songImageTbl[...].songId=" +
                   track.songId +
                   " doesn't exist"
               );
@@ -202,6 +203,10 @@
                 "no disc images in songImageTbl[...].songId=" + track.songId
               );
         }
+      } else {
+        console.error(
+          "no Disk and Sleeve images for this track, trackTbl[...].songId = null"
+        );
       }
 
       //-----------------------------------------
@@ -212,6 +217,7 @@
         var artistImages = artistImageTbl.filter(
           artist => artist.name === song.artist
         );
+        // Oops, artistImageTbl[...].name is used twice resulting in an array with 2 or more objects
         if (artistImages.length > 1) {
           console.error(
             "TYPO ERROR:: artistImageTbl[...] has two objects with the same artist name=" +
@@ -219,7 +225,6 @@
               " program only uses the first object, all others ignored."
           );
         }
-
         // if image objects exists, grab (hopefully) the only item in array
         artistImages =
           artistImages.length >= 1
@@ -238,11 +243,15 @@
                 getRandomArrayItem(artistImages.src)
               )
             : console.error(
-                " no artist images for this track. artistImageTbl[...].name=" +
+                "no artist images for this track. artistImageTbl[...].name=" +
                   song.artist +
-                  "src array is empty"
+                  " src array is empty"
               );
         }
+      } else {
+        console.error(
+          "no artist images for this track, trackTbl[...].songId = null"
+        );
       }
 
       //-----------------------------------------
@@ -250,6 +259,7 @@
       //-----------------------------------------
       if (track.dj != null) {
         var djImages = djImageTbl.filter(dj => dj.name === track.dj);
+        // Oops, djImageTbl[...].name is used twice resulting in an array with 2 or more objects
         if (djImages.length > 1) {
           console.error(
             "TYPO ERROR:: djImageTbl[...] has two objects with the same dj name=" +
@@ -257,7 +267,6 @@
               " program only uses the first object, all others ignored."
           );
         }
-
         // if dj objects exists, grab (hopefully) the only item in array
         djImages =
           djImages.length >= 1
@@ -275,14 +284,56 @@
             : console.error(
                 " no dj images for this track. djImageTbl[...].name=" +
                   track.dj +
-                  "src array is empty"
+                  " src array is empty"
               );
         }
+      } else {
+        console.error("no dj images for this track, trackTbl[...].dj = null");
       }
 
       //-----------------------------------------
       // print any station src paths
       //-----------------------------------------
+      if (track.station != null) {
+        var stationImages = stationImageTbl.filter(
+          station => station.name === track.station
+        );
+        // Oops, stationImageTbl[...].name is used twice resulting in an array with 2 or more objects
+        if (stationImages.length > 1) {
+          console.error(
+            "TYPO ERROR:: stationImageTbl[...] has two objects with the same station name=" +
+              track.station +
+              " program only uses the first object, all others ignored."
+          );
+        }
+        // if station objects exists, grab (hopefully) the only item in array
+        stationImages =
+          stationImages.length >= 1
+            ? stationImages[0]
+            : console.error(
+                "no station objects for this track. stationImageTbl[...].name=" +
+                  track.station +
+                  " doesn't exist"
+              );
+        // if station object exists
+        if (stationImages != undefined) {
+          // if src array has a photo
+          stationImages.src.length >= 1
+            ? console.log(
+                "RANDOM STATION IMAGE:",
+                getRandomArrayItem(stationImages.src)
+              )
+            : console.error(
+                " no station images for this track. stationImageTbl[...].name=" +
+                  track.station +
+                  " src array is empty"
+              );
+        }
+      } else {
+        console.error(
+          "no station images for this track, trackTbl[...].station = null"
+        );
+      }
     }
     // Returns the index of the initial track to play and the offset,
     // in seconds, of where to start playing the track.
