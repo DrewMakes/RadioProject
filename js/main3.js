@@ -1,17 +1,17 @@
-// Live Server VSCode extention lets modules work in chrome.
-import { trackTbl } from "./trackData_fake.js";
-import {
-  songTbl,
-  artistTbl,
-  djTbl,
-  stationTbl,
-  newsImage
-} from "./trackMetaData_fake.js";
-
 // when the page is loaded,
 (function() {
-  // generated playlist
-  var playlistData = [7, 3, 1, 5, 2, 6, 4, 0];
+  // playlistData are the tracks to be played in order in trackTbl,
+  // referenced by trackId
+  var playlistData = [
+    { trackId: 9 },
+    { trackId: 69 },
+    { trackId: 64 },
+    { trackId: 1223 },
+    { trackId: 1369 },
+    { trackId: 1030 },
+    { trackId: 31 },
+    { trackId: 10 }
+  ];
   //  the tracks are muted
   var audio1 = new Audio();
   audio1.muted = true;
@@ -38,29 +38,26 @@ import {
       }
       var secOffset = 0.0;
       // first press of play btn
-      if (index == 0) {
-        var initialTrack = getInitialTrackToPlay(); // get current song index + secOffset within song
+      // get real index and time offset
+      if (index === 0) {
+        var firstTrackId = playlist[index].trackId;
+        var firstTrack = trackTbl.filter(
+          track => track.trackId === firstTrackId
+        )[0];
+        var firstDur = firstTrack.dur;
+        var firstOuttro = firstTrack.outtro;
+        var initialTrack = getInitialTrackToPlay(firstDur, firstOuttro); // get current song index + secOffset within song
         index = initialTrack.index;
         secOffset = initialTrack.secOffset;
       }
-      // get track
-      let trackId = playlist[index];
-      let track = trackTbl[trackId];
-      //check if trackTbl[...].trackId is the same as Array index
-      if (trackId != track.trackId) {
-        console.error(
-          "TYPO ERROR in TRACKTABLE DATA:: check for typo in trackTbl[" +
-            trackId +
-            "].trackId 'trackId' is " +
-            track.trackId +
-            " and should be " +
-            trackId +
-            "."
-        );
-      }
-      // QUEUE audio
+      // track
+      var trackId = playlist[index].trackId;
+      var track = trackTbl.filter(track => track.trackId === trackId)[0];
+      var dur = track.dur;
+      var outtro = track.outtro;
+
       audio.src = track.src + "#t=" + secOffset;
-      var dur = getTrackDuration(index) - secOffset * 1000;
+      var dur = getTrackDuration(dur, outtro) - secOffset * 1000;
       if (audio === audio1) {
         setTimeout(function() {
           playNextTrack(audio2);
@@ -70,136 +67,28 @@ import {
           playNextTrack(audio1);
         }, dur);
       }
-      audio.play(); // play audio
-
-      // // TEST LOGGING
+      audio.play();
       // if (audio === audio1) {
-      //   console.log("index:" + index, track.src, "(audio1)");
+      //   console.log("index:" + index, track.trackId, track.src, "(audio1)");
       // } else {
-      //   console.log("index:" + index, track.src, "(audio2)");
+      //   console.log("index:" + index, track.trackId, track.src, "(audio2)");
       // }
-
-      // ---------
-      // if song
-      // ---------
-      if (track.songId != null) {
-        let song = songTbl[track.songId];
-        let artist = artistTbl[song.artistId];
-        // check if songTbl[...].songId matches the Array index
-        if (track.songId != song.songId) {
-          console.error(
-            "TYPO ERROR in SONGTABLE DATA:: check for typo in songTbl[" +
-              track.songId +
-              "] 'songTbl[" +
-              track.songId +
-              "].songId' is " +
-              song.songId +
-              " and should be " +
-              track.songId +
-              "."
-          );
-        }
-        // check if artist names match in songTbl and artistTbl,
-        // is this is necessary? maybe have name in one spot?
-        if (song.artist != artist.name) {
-          console.error(
-            "TYPO ERROR in songTbl or artistTbl:: song.artist= " +
-              song.artist +
-              " should be the same as artist.name= " +
-              artist.name
-          );
-        }
-        // check if artistTbl[...].artistId matches Array index
-        if (song.artistId != artist.artistId) {
-          console.error(
-            "TYPO ERROR in ARTISTTABLE DATA:: check for typo in artistTbl[" +
-              song.artistId +
-              "].artistId. artistTbl[" +
-              song.artistId +
-              "].artistId is " +
-              artist.artistId +
-              " and should be " +
-              song.artistId +
-              "."
-          );
-        }
-
-        //TODO Display song data
-        console.log(
-          "DISPLAY SONG INFO:",
-          song.title,
-          song.artist,
-          artist.sleeves,
-          artist.records,
-          artist.headshots
-        );
-      }
-
-      // --------
-      // if dj
-      // --------
-      if (track.djId != null) {
-        let dj = djTbl[track.djId];
-        // check if djTbl[...].djId matches Array index
-        if (track.djId != dj.djId) {
-          console.error(
-            "TYPO ERROR in DJTABLE DATA:: check for typo in djTbl[" +
-              track.djId +
-              "].djId. djTbl[" +
-              track.djId +
-              "].djId is " +
-              dj.djId +
-              " and should be " +
-              track.djId +
-              ""
-          );
-        }
-
-        //TODO Display dj data
-        console.log("DISPLAY DJ INFO:", dj.name, dj.headshots);
-      }
-
-      // -----------
-      // if station
-      // -----------
-      if (track.stationId != null) {
-        let station = stationTbl[track.stationId];
-        //check if stationTbl[...].stationId matches Array index
-        if (track.stationId != station.stationId) {
-          console.error(
-            "TYPO ERROR in STATIONTABLE DATA:: check for typo in stationTbl[" +
-              track.stationId +
-              "].stationId. stationTbl[" +
-              track.stationId +
-              "].stationId is " +
-              station.stationId +
-              " and should be " +
-              track.stationId +
-              "."
-          );
-        }
-        // TODO Display station data
-        console.log("DISPLAY STATION INFO:", station.name, station.photos);
-      }
-
-      // --------
-      // if news
-      // --------
-      if (track.type === "news") {
-        console.log("DISPLAY::" + newsImage);
-      }
+      displayImages(track);
       index += 1;
     };
 
+    function displayImages(track) {
+      console.log(track);
+    }
     // Returns the index of the initial track to play and the offset,
     // in seconds, of where to start playing the track.
     // index is returned as -1 if an inital track can't be found.
-    var getInitialTrackToPlay = function() {
+    var getInitialTrackToPlay = function(dur, outtro) {
       var now = new Date();
       var msDif = now.getTime() - timeAtLoad.getTime();
       var i = 0;
       while (i < playlist.length) {
-        var trackDur = getTrackDuration(i);
+        var trackDur = getTrackDuration(dur, outtro);
         if (msDif - trackDur < 0) {
           var secOffset = Math.abs(msDif) / 1000;
           return {
@@ -218,9 +107,7 @@ import {
     };
 
     // aka how long to wait before starting the next track
-    var getTrackDuration = function(i) {
-      var dur = trackTbl[playlist[i]].dur;
-      var outtro = trackTbl[playlist[i]].outtro;
+    var getTrackDuration = function(dur, outtro) {
       if (outtro !== 0) {
         dur = outtro;
       }
