@@ -26,15 +26,15 @@ var songTbl = [
   }
 ];
 
-// Print to console the image src path of each image that makes sense being
-// displayed during the playing of track.
-var displayImages = function(track) {
-  // print any survey src paths
-  // print any song disc & sleeve src paths
-  // print any artist src paths
-  // print any dj src paths
-  // print any station src paths
-};
+// // Print to console the image src path of each image that makes sense being
+// // displayed during the playing of track.
+// var displayImages = function(track) {
+//   // print any survey src paths
+//   // print any song disc & sleeve src paths
+//   // print any artist src paths
+//   // print any dj src paths
+//   // print any station src paths
+// };
 
 var surveyImageTbl = [
   // these survey images are shown on the day of year they were published

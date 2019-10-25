@@ -78,7 +78,67 @@
     };
 
     function displayImages(track) {
-      console.log(track);
+      //-----------------------------------------
+      // print any survey src paths
+      //-----------------------------------------
+
+      //-----------------------------------------
+      // print any song disc & sleeve src paths
+      //-----------------------------------------
+      if (track.songId != null) {
+        var song = songTbl.filter(song => song.songId === track.songId)[0];
+        // display song title and artist
+        console.log("TITLE: " + song.title, "ARTIST: " + song.artist);
+        // query song images
+        var songImages = songImageTbl.filter(
+          songImage => songImage.songId === track.songId
+        );
+        // Oops, songImageTbl[...].songId is used twice resulting in an array with 2 or more objects
+        // Maybe a better way to do this is a unique Id check on all the data at once rather than real-time errors like this. Dunno
+        if (songImages.length > 1) {
+          console.error(
+            "TYPO ERROR:: songImageTbl[...] has two objects with the same songId=" +
+              songImages[0].songId +
+              " program only uses the first object, all others ignored."
+          );
+        }
+        // if image objects exists, grab (hopefully) the only item in array
+        var songImages =
+          songImages.length >= 1
+            ? songImages[0]
+            : console.error(
+                "no song images for this track. songImageTbl[...].songId=" +
+                  track.songId +
+                  " doesn't exist"
+              );
+        // if images object exists
+        if (songImages != undefined) {
+          // if sleeves array has a photo
+          songImages.srcSleeve.length >= 1
+            ? console.log("SLEEVE IMAGE(S)", songImages.srcSleeve)
+            : console.error(
+                " no sleeve images in songImageTbl[...].songId=" + track.songId
+              );
+          // if disc array has a photo
+          songImages.srcDisc.length >= 1
+            ? console.log("DISK IMAGE(S)", songImages.srcDisc)
+            : console.error(
+                "no disc images in songImageTbl[...].songId=" + track.songId
+              );
+        }
+      }
+
+      //-----------------------------------------
+      // print any artist src paths
+      //-----------------------------------------
+
+      //-----------------------------------------
+      // print any dj src paths
+      //-----------------------------------------
+
+      //-----------------------------------------
+      // print any station src paths
+      //-----------------------------------------
     }
     // Returns the index of the initial track to play and the offset,
     // in seconds, of where to start playing the track.
