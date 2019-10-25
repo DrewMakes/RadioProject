@@ -209,7 +209,6 @@
       //-----------------------------------------
       if (track.songId != null) {
         var song = getSong(track.songId);
-        // display song title and artist
         var artistImages = artistImageTbl.filter(
           artist => artist.name === song.artist
         );
@@ -239,13 +238,47 @@
                 getRandomArrayItem(artistImages.src)
               )
             : console.error(
-                " no artist images in artistImageTbl[...].name=" + song.artist
+                " no artist images for this track. artistImageTbl[...].name=" +
+                  song.artist +
+                  "src array is empty"
               );
         }
       }
+
       //-----------------------------------------
       // print any dj src paths
       //-----------------------------------------
+      if (track.dj != null) {
+        var djImages = djImageTbl.filter(dj => dj.name === track.dj);
+        if (djImages.length > 1) {
+          console.error(
+            "TYPO ERROR:: djImageTbl[...] has two objects with the same dj name=" +
+              track.dj +
+              " program only uses the first object, all others ignored."
+          );
+        }
+
+        // if dj objects exists, grab (hopefully) the only item in array
+        djImages =
+          djImages.length >= 1
+            ? djImages[0]
+            : console.error(
+                "no dj objects for this track. djImageTbl[...].name=" +
+                  track.dj +
+                  " doesn't exist"
+              );
+        // if dj object exists
+        if (djImages != undefined) {
+          // if src array has a photo
+          djImages.src.length >= 1
+            ? console.log("RANDOM DJ IMAGE:", getRandomArrayItem(djImages.src))
+            : console.error(
+                " no dj images for this track. djImageTbl[...].name=" +
+                  track.dj +
+                  "src array is empty"
+              );
+        }
+      }
 
       //-----------------------------------------
       // print any station src paths
