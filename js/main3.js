@@ -3,14 +3,14 @@
   // playlistData are the tracks to be played in order in trackTbl,
   // referenced by trackId
   var playlistData = [
-    { trackId: 9 },
-    { trackId: 69 },
-    { trackId: 64 },
-    { trackId: 1223 },
-    { trackId: 1369 },
-    { trackId: 1030 },
-    { trackId: 31 },
-    { trackId: 10 }
+    { trackId: 1030 }, // parking garage
+    { trackId: 9 }, // domino
+    { trackId: 69 }, //cecilia
+    { trackId: 64 }, // band of gold
+    { trackId: 1223 }, // dan ingram thing
+    { trackId: 1369 }, // WABC Chime Time
+    { trackId: 31 }, // no matter what
+    { trackId: 10 } // groove me
   ];
   //  the tracks are muted
   var audio1 = new Audio();
@@ -38,26 +38,18 @@
       }
       var secOffset = 0.0;
       // first press of play btn
-      // get real index and time offset
       if (index === 0) {
-        var firstTrackId = playlist[index].trackId;
-        var firstTrack = trackTbl.filter(
-          track => track.trackId === firstTrackId
-        )[0];
-        var firstDur = firstTrack.dur;
-        var firstOuttro = firstTrack.outtro;
-        var initialTrack = getInitialTrackToPlay(firstDur, firstOuttro); // get current song index + secOffset within song
+        var initialTrack = getInitialTrackToPlay(); // get current song index + secOffset within song
         index = initialTrack.index;
+        console.log("INDEX: ", index);
         secOffset = initialTrack.secOffset;
       }
       // track
       var trackId = playlist[index].trackId;
       var track = trackTbl.filter(track => track.trackId === trackId)[0];
-      var dur = track.dur;
-      var outtro = track.outtro;
 
       audio.src = track.src + "#t=" + secOffset;
-      var dur = getTrackDuration(dur, outtro) - secOffset * 1000;
+      var dur = getTrackDuration(index) - secOffset * 1000;
       if (audio === audio1) {
         setTimeout(function() {
           playNextTrack(audio2);
@@ -338,12 +330,12 @@
     // Returns the index of the initial track to play and the offset,
     // in seconds, of where to start playing the track.
     // index is returned as -1 if an inital track can't be found.
-    var getInitialTrackToPlay = function(dur, outtro) {
+    var getInitialTrackToPlay = function() {
       var now = new Date();
       var msDif = now.getTime() - timeAtLoad.getTime();
       var i = 0;
       while (i < playlist.length) {
-        var trackDur = getTrackDuration(dur, outtro);
+        var trackDur = getTrackDuration(i);
         if (msDif - trackDur < 0) {
           var secOffset = Math.abs(msDif) / 1000;
           return {
@@ -362,7 +354,13 @@
     };
 
     // aka how long to wait before starting the next track
-    var getTrackDuration = function(dur, outtro) {
+    var getTrackDuration = function(i) {
+      var playlistTrackId = playlist[i].trackId;
+      var track = trackTbl.filter(
+        track => track.trackId === playlistTrackId
+      )[0];
+      var dur = track.dur;
+      var outtro = track.outtro;
       if (outtro !== 0) {
         dur = outtro;
       }

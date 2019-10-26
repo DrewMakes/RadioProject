@@ -39,7 +39,7 @@ var songTbl = [
 var surveyImageTbl = [
   // these survey images are shown on the day of year they were published
   {
-    date: "Oct 25",
+    date: "Jan 2",
     src: [
       "images/surveys/CHUM_1971-01-02_2.jpg",
       "images/surveys/1971Jan02WABCSurvey.jpg"
@@ -67,7 +67,7 @@ var songImageTbl = [
   },
   {
     songId: 150,
-    srcSleeve: [""],
+    srcSleeve: [],
     srcDisc: ["images/singles/Bring the Boys Home vinyl.jpg"]
   }
 ];
