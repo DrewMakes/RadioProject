@@ -308,11 +308,11 @@
       artistImgsToDisplay = shuffle(artistImgsToDisplay);
       djStationImgsToDisplay = shuffle(djStationImgsToDisplay);
 
-      let totalImgCount =
-        surveyImgToDisplay.length +
-        artistImgsToDisplay.length +
-        djStationImgsToDisplay.length;
-      console.log("# of Images Available: ", totalImgCount);
+      // let totalImgCount =
+      //   surveyImgToDisplay.length +
+      //   artistImgsToDisplay.length +
+      //   djStationImgsToDisplay.length;
+      // console.log(totalImgCount + " out of 6 'SLOT TYPES' available");
       let result = [];
       if (surveyImgToDisplay.length === 1) {
         result.push(surveyImgToDisplay[0]);
