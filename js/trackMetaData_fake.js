@@ -39,18 +39,24 @@ var songTbl = [
 var surveyImageTbl = [
   // these survey images are shown on the day of year they were published
   {
-    date: "Jan 2",
-    src: [
-      "images/surveys/CHUM_1971-01-02_2.jpg",
-      "images/surveys/1971Jan02WABCSurvey.jpg"
-    ]
+    date: "Oct 28",
+    station: "CHUM",
+    src: "images/surveys/CHUM_1971-01-02_2.jpg"
+  },
+  {
+    date: "Oct 28",
+    station: "WABC",
+    src: "images/surveys/1971Jan02WABCSurvey.jpg"
   },
   {
     date: "Feb 16",
-    src: [
-      "images/surveys/CHUM_1971-02-16_2.jpg",
-      "images/surveys/WLSFeb16-71Survey.jpg"
-    ]
+    station: "CHUM",
+    src: "images/surveys/CHUM_1971-02-16_2.jpg"
+  },
+  {
+    date: "Feb 16",
+    station: "WLS",
+    src: "images/surveys/WLSFeb16-71Survey.jpg"
   }
 ];
 
@@ -58,10 +64,21 @@ var songImageTbl = [
   // these images are pics of a record disc or its sleeve
   // and are shown when that song is playing
   {
+    songId: 1,
+    srcSleeve: [
+      "images/singles/fredapayne-bandofgold sleeve1.jpg",
+      "images/singles/fredapayne-bandofgold sleeve2.jpg",
+      "images/singles/freda-payne_band-of-gold sleeve3.jpg"
+    ],
+    srcDisc: ["freda-payne-band-of-gold vinyl.jpg"]
+  },
+  {
     songId: 15,
     srcSleeve: [
-      "images/sleeves/Domino sleeve.jpg",
-      "images/sleeves/Domino sleeve UK.jpg"
+      "images/sleeves/VAN_MORRISON_DOMINO-sleeve1.jpg",
+      "images/sleeves/VAN_MORRISON_DOMINO-sleeve2.jpg",
+      "images/sleeves/vanmorrison_domino-sleeve3.jpg",
+      "images/sleeves/van-morrison-domino-warner-bros-sleeve.jpg"
     ],
     srcDisc: ["images/singles/Domino vinyl.jpg"]
   },
@@ -69,6 +86,16 @@ var songImageTbl = [
     songId: 150,
     srcSleeve: [],
     srcDisc: ["images/singles/Bring the Boys Home vinyl.jpg"]
+  },
+  {
+    songId: 272,
+    srcSleeve: ["images/singles/king_floyd-groove_me_sleeve1.jpg"],
+    srcDisc: ["images/singles/king-floyd-groove-me-1970-4.jpg"]
+  },
+  {
+    songId: 274,
+    srcSleeve: [],
+    srcDisc: ["images/singles/badfinger-no-matter-what vinyl.jpg"]
   }
 ];
 
@@ -77,7 +104,7 @@ var artistImageTbl = [
   // these pics can be shown when any song of theirs is playing
   {
     name: "King Floyd",
-    src: []
+    src: ["images/artists/king_floyd.jpg"]
   },
   {
     name: "Badfinger",
@@ -85,18 +112,19 @@ var artistImageTbl = [
   },
   {
     name: "Freda Payne",
-    src: [
-      "images/artists/Freda_Payne_001.jpg",
-      "images/artists/F_Payne_in_concert.jpg"
-    ]
+    src: ["images/artists/640px-Freda_Payne_1970.jpg"]
   },
   {
     name: "Simon & Garfunkel",
     src: []
   },
   {
+    name: "Badfinger",
+    src: ["images/artists/bad that there is 2.jpg"]
+  },
+  {
     name: "Van Morrison",
-    src: ["images/artists/Van_the_Man_001.jpg"]
+    src: []
   }
 ];
 
@@ -104,19 +132,22 @@ var djImageTbl = [
   // shown when this DJ is talking on a song, ad, etc
   {
     name: "Dan Ingram",
-    src: ["images/dj/Dan_Ingram_Mess.jpg"]
+    src: [
+      "images/dj/Ingram-studio-Fall 1971.jpg",
+      "images/dj/dan-ingram-wabc 1.jpg"
+    ]
   },
   {
     name: "Ron Sherwood",
-    src: ["images/dj/Ron_Sherwood_1.jpg"]
+    src: ["images/dj/WKNR-09-25-1969-Ron-Sherwood.jpg"]
   },
   {
     name: "Bob Hardt",
-    src: ["images/dj/Bob-Hardt-71.jpg"]
+    src: ["images/dj/Bob Hardt 3-72-5.jpg"]
   },
   {
     name: "J Michael Wilson",
-    src: ["images/dj/J_Michael_Wilson063.jpg"]
+    src: ["images/dj/chum-jmwilson.gif"]
   }
 ];
 
@@ -126,7 +157,11 @@ var stationImageTbl = [
   // is playing
   {
     name: "CHUM",
-    src: ["images/station/CHUM_tape_rack.jpg"]
+    src: ["images/stations/1050chum-rainbow-1971.jpg"]
+  },
+  {
+    name: "WABC",
+    src: ["images/stations/WABC-Lobby 1971.jpg"]
   }
 ];
 

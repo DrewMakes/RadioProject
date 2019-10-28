@@ -19,8 +19,10 @@
   audio2.muted = true;
   // time elapsed since page load
   var timeAtLoad = new Date();
-  // song index intialized
+  // track index intialized
   let index = 0;
+  // log warnings or not
+  let logWarnings = true;
 
   var Mp3Queue = function(audio1, audio2, playlist) {
     console.log("Main func start");
@@ -39,9 +41,8 @@
       var secOffset = 0.0;
       // first press of play btn
       if (index === 0) {
-        var initialTrack = getInitialTrackToPlay(); // get current song index + secOffset within song
+        var initialTrack = getInitialTrackToPlay(); // get current track index + secOffset within track
         index = initialTrack.index;
-        console.log("INDEX: ", index);
         secOffset = initialTrack.secOffset;
       }
       // track
@@ -60,7 +61,6 @@
         }, dur);
       }
       audio.play();
-      console.log("////////////////////////////////");
       // if (audio === audio1) {
       //   console.log("index:" + index, track.trackId, track.src, "(audio1)");
       // } else {
@@ -71,25 +71,24 @@
     };
 
     function displayImages(track) {
+      let surveyImgToDisplay = [];
+      let artistImgsToDisplay = [];
+      let djStationImgsToDisplay = [];
+
       var getSong = function(trackSongId) {
         var song = songTbl.filter(song => song.songId === track.songId);
         // Oops, songTbl[...].songId is used twice resulting in an array with 2 or more song objects
         if (song.length > 1) {
           console.error(
-            "TYPO ERROR:: songTbl[...] has two song objects with the same songId=" +
-              track.songId +
-              " program only uses the first object, all others ignored."
+            "songTbl has more than one object for " + track.songId + " !!!"
           );
         }
         // if song object(s) exist, return (hopefully) the only song object in array
         return song.length >= 1
           ? song[0]
-          : console.error(
-              "songTbl is missing an object in its array. songTbl[...].songId=" +
-                track.songId +
-                " doesn't exist"
-            );
+          : console.error("songTbl is missing songId " + track.songId);
       };
+      console.log("\n////// track type: " + track.type + " ////////");
       //-----------------------------------------
       // print any survey src paths
       //-----------------------------------------
@@ -113,35 +112,32 @@
         monthNames[currentDate.getMonth()] +
         " " +
         currentDate.getDate().toString();
+      // get array of survey obj that match todays date.
       var surveyImagesForToday = surveyImageTbl.filter(
-        surveyImg => surveyImg.date === currentDate
+        surveyImgObj => surveyImgObj.date === currentDate
       );
-
-      // Oops, surveyImageTbl[...].date is used twice resulting in an array with 2 or more objects
-      // Maybe a better way to do this is a unique Id check on all the data at once rather than real-time errors like this. Dunno
-      if (surveyImagesForToday.length > 1) {
-        console.error(
-          "TYPO ERROR:: surveyImageTbl[...] has two objects with the same date=" +
-            currentDate +
-            " program only uses the first day found, all others ignored."
+      // check if any survey's for today exist
+      if (surveyImagesForToday.length < 1) {
+        consoleWarning("no survey for " + currentDate);
+      } else {
+        // survey object does exist
+        // get array of survey's that match track station
+        var surveyStationImagesForToday = surveyImagesForToday.filter(
+          surveyImgObj => surveyImgObj.station === track.station
         );
-      }
-      // if a surveyImagesForToday object(s) exist, grab (hopefully) the only item in array
-      var surveyImagesForToday =
-        surveyImagesForToday.length >= 1
-          ? surveyImagesForToday[0]
-          : console.error("today's date has no object in surveyImageTbl");
+        // if some amount of survey objects match track's station
+        if (surveyStationImagesForToday.length >= 1) {
+          surveyImagesForToday = getRandomArrayItem(
+            surveyStationImagesForToday
+          );
+        } else {
+          // no stations matched, pick any survey for today
+          // get any survey regardless of station
+          surveyImagesForToday = getRandomArrayItem(surveyImagesForToday);
+        }
+        // console.log("RANDOM SURVEY IMAGE: ", surveyImagesForToday.src);
 
-      // if survey image day object exists
-      if (surveyImagesForToday != undefined) {
-        // if day object's array of survey images has images
-        surveyImagesForToday.src.length >= 1
-          ? //choose a random survey image from src array
-            console.log(
-              "RANDOM SURVEY IMAGE: ",
-              getRandomArrayItem(surveyImagesForToday.src)
-            )
-          : console.error("there are no survey images for this day");
+        surveyImgToDisplay.push(surveyImagesForToday.src);
       }
 
       //-----------------------------------------
@@ -156,49 +152,40 @@
         var songImages = songImageTbl.filter(
           songImage => songImage.songId === track.songId
         );
-        // Oops, songImageTbl[...].songId is used twice resulting in an array with 2 or more objects
         // Maybe a better way to do this is a unique Id check on all the data at once rather than real-time errors like this. Dunno
         if (songImages.length > 1) {
           console.error(
-            "TYPO ERROR:: songImageTbl[...] has two objects with the same songId=" +
-              track.songId +
-              " program only uses the first object, all others ignored."
+            "songImageTbl has more than one object for " + track.songId + " !!!"
           );
         }
         // if image objects exists, grab (hopefully) the only item in array
         songImages =
           songImages.length >= 1
             ? songImages[0]
-            : console.error(
-                "no song DISK or SLEEVE images for this track. songImageTbl[...].songId=" +
-                  track.songId +
-                  " doesn't exist"
-              );
+            : consoleWarning("no Disk or Sleeve images for " + song.title);
         // if images object exists
         if (songImages != undefined) {
           // if sleeves array has a photo
           songImages.srcSleeve.length >= 1
-            ? console.log(
-                "RANDOM SLEEVE IMAGE",
-                getRandomArrayItem(songImages.srcSleeve)
-              )
-            : console.error(
-                " no sleeve images in songImageTbl[...].songId=" + track.songId
-              );
+            ? artistImgsToDisplay.push(getRandomArrayItem(songImages.srcSleeve))
+            : // ? console.log(
+              //     "RANDOM SLEEVE IMAGE",
+              //     getRandomArrayItem(songImages.srcSleeve)
+              //   )
+              consoleWarning("no Sleeve images for song: " + song.title);
           // if disc array has a photo
           songImages.srcDisc.length >= 1
-            ? console.log(
-                "RANDOM DISK IMAGE",
-                getRandomArrayItem(songImages.srcDisc)
-              )
-            : console.error(
-                "no disc images in songImageTbl[...].songId=" + track.songId
-              );
+            ? artistImgsToDisplay.push(getRandomArrayItem(songImages.srcDisc))
+            : // ? console.log(
+              //     "RANDOM DISK IMAGE",
+              //     getRandomArrayItem(songImages.srcDisc)
+              // )
+              consoleWarning("no Disk images for song: " + song.title);
         }
       } else {
-        console.error(
-          "no Disk and Sleeve images for this track, trackTbl[...].songId = null"
-        );
+        if (track.type === "song") {
+          console.error("This song does not have a songId !!!");
+        }
       }
 
       //-----------------------------------------
@@ -209,41 +196,29 @@
         var artistImages = artistImageTbl.filter(
           artist => artist.name === song.artist
         );
-        // Oops, artistImageTbl[...].name is used twice resulting in an array with 2 or more objects
         if (artistImages.length > 1) {
           console.error(
-            "TYPO ERROR:: artistImageTbl[...] has two objects with the same artist name=" +
+            "artistImageTbl has more than one object for " +
               song.artist +
-              " program only uses the first object, all others ignored."
+              " !!!"
           );
         }
         // if image objects exists, grab (hopefully) the only item in array
         artistImages =
           artistImages.length >= 1
             ? artistImages[0]
-            : console.error(
-                "no artist objects for this track. artistImageTbl[...].name=" +
-                  song.artist +
-                  " doesn't exist"
-              );
+            : consoleWarning("no artist object for " + song.artist);
         // if artist object exists
         if (artistImages != undefined) {
           // if src array has a photo
           artistImages.src.length >= 1
-            ? console.log(
-                "RANDOM ARTIST IMAGE:",
-                getRandomArrayItem(artistImages.src)
-              )
-            : console.error(
-                "no artist images for this track. artistImageTbl[...].name=" +
-                  song.artist +
-                  " src array is empty"
-              );
+            ? artistImgsToDisplay.push(getRandomArrayItem(artistImages.src))
+            : // ? console.log(
+              //     "RANDOM ARTIST IMAGE:",
+              //     getRandomArrayItem(artistImages.src)
+              //   )
+              consoleWarning("no artist images for " + song.artist);
         }
-      } else {
-        console.error(
-          "no artist images for this track, trackTbl[...].songId = null"
-        );
       }
 
       //-----------------------------------------
@@ -251,36 +226,26 @@
       //-----------------------------------------
       if (track.dj != null) {
         var djImages = djImageTbl.filter(dj => dj.name === track.dj);
-        // Oops, djImageTbl[...].name is used twice resulting in an array with 2 or more objects
         if (djImages.length > 1) {
           console.error(
-            "TYPO ERROR:: djImageTbl[...] has two objects with the same dj name=" +
-              track.dj +
-              " program only uses the first object, all others ignored."
+            "djImageTbl has more than one object for " + track.dj + " !!!"
           );
         }
         // if dj objects exists, grab (hopefully) the only item in array
         djImages =
           djImages.length >= 1
             ? djImages[0]
-            : console.error(
-                "no dj objects for this track. djImageTbl[...].name=" +
-                  track.dj +
-                  " doesn't exist"
-              );
+            : consoleWarning("no dj objects for " + track.dj);
         // if dj object exists
         if (djImages != undefined) {
           // if src array has a photo
           djImages.src.length >= 1
-            ? console.log("RANDOM DJ IMAGE:", getRandomArrayItem(djImages.src))
-            : console.error(
-                " no dj images for this track. djImageTbl[...].name=" +
-                  track.dj +
-                  " src array is empty"
-              );
+            ? djStationImgsToDisplay.push(getRandomArrayItem(djImages.src))
+            : // ? console.log("RANDOM DJ IMAGE:", getRandomArrayItem(djImages.src))
+              consoleWarning("no dj images for " + track.dj);
         }
       } else {
-        console.error("no dj images for this track, trackTbl[...].dj = null");
+        //consoleWarning("no dj for trackId:"+track.trackId);
       }
 
       //-----------------------------------------
@@ -290,43 +255,89 @@
         var stationImages = stationImageTbl.filter(
           station => station.name === track.station
         );
-        // Oops, stationImageTbl[...].name is used twice resulting in an array with 2 or more objects
         if (stationImages.length > 1) {
           console.error(
-            "TYPO ERROR:: stationImageTbl[...] has two objects with the same station name=" +
+            "stationImageTbl has more than one object for " +
               track.station +
-              " program only uses the first object, all others ignored."
+              " !!!"
           );
         }
         // if station objects exists, grab (hopefully) the only item in array
         stationImages =
           stationImages.length >= 1
             ? stationImages[0]
-            : console.error(
-                "no station objects for this track. stationImageTbl[...].name=" +
-                  track.station +
-                  " doesn't exist"
-              );
+            : consoleWarning("no station objects for " + track.station);
         // if station object exists
         if (stationImages != undefined) {
           // if src array has a photo
           stationImages.src.length >= 1
-            ? console.log(
-                "RANDOM STATION IMAGE:",
-                getRandomArrayItem(stationImages.src)
-              )
-            : console.error(
-                " no station images for this track. stationImageTbl[...].name=" +
-                  track.station +
-                  " src array is empty"
-              );
+            ? djStationImgsToDisplay.push(getRandomArrayItem(stationImages.src))
+            : // ? console.log(
+              //     "RANDOM STATION IMAGE:",
+              //     getRandomArrayItem(stationImages.src)
+              //   )
+              consoleWarning("no station images for " + track.station);
         }
       } else {
-        console.error(
+        consoleWarning(
           "no station images for this track, trackTbl[...].station = null"
         );
       }
+
+      function shuffle(array) {
+        var currentIndex = array.length,
+          temporaryValue,
+          randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+      }
+
+      // shuffel Artist images and DJ/Station images
+      artistImgsToDisplay = shuffle(artistImgsToDisplay);
+      djStationImgsToDisplay = shuffle(djStationImgsToDisplay);
+
+      let totalImgCount =
+        surveyImgToDisplay.length +
+        artistImgsToDisplay.length +
+        djStationImgsToDisplay.length;
+      console.log("# of Images Available: ", totalImgCount);
+      let result = [];
+      if (surveyImgToDisplay.length === 1) {
+        result.push(surveyImgToDisplay[0]);
+      }
+      // Alternate artist and dj/station images
+      var j,
+        l = Math.min(artistImgsToDisplay.length, djStationImgsToDisplay.length);
+
+      for (j = 0; j < l; j++) {
+        result.push(artistImgsToDisplay[j], djStationImgsToDisplay[j]);
+      }
+      result.push(
+        ...artistImgsToDisplay.slice(l),
+        ...djStationImgsToDisplay.slice(l)
+      );
+
+      console.log("FINAL IMAGES", result.slice(0, 3));
     }
+
+    function consoleWarning(msg) {
+      if (logWarnings) {
+        console.warn("WARNING: " + msg);
+      }
+    }
+
     // Returns the index of the initial track to play and the offset,
     // in seconds, of where to start playing the track.
     // index is returned as -1 if an inital track can't be found.
