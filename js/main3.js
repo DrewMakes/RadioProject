@@ -72,8 +72,7 @@
 
     function displayImages(track) {
       let surveyImgToDisplay = [];
-      let artistImgsToDisplay = [];
-      let djStationImgsToDisplay = [];
+      let allImgsToDisplay = [];
 
       var getSong = function(trackSongId) {
         var song = songTbl.filter(song => song.songId === track.songId);
@@ -127,17 +126,13 @@
         );
         // if some amount of survey objects match track's station
         if (surveyStationImagesForToday.length >= 1) {
-          surveyImagesForToday = getRandomArrayItem(
-            surveyStationImagesForToday
-          );
+          surveyImagesForToday = surveyStationImagesForToday;
         } else {
-          // no stations matched, pick any survey for today
-          // get any survey regardless of station
-          surveyImagesForToday = getRandomArrayItem(surveyImagesForToday);
         }
-        // console.log("RANDOM SURVEY IMAGE: ", surveyImagesForToday.src);
-
-        surveyImgToDisplay.push(surveyImagesForToday.src);
+        // surveyImgToDisplay.push(
+        //   getRandomArrayItem(surveyImagesForToday.map(survey => survey.src))
+        // );
+        allImgsToDisplay.push(getRandomArrayItem(surveyImagesForToday));
       }
 
       //-----------------------------------------
@@ -167,20 +162,12 @@
         if (songImages != undefined) {
           // if sleeves array has a photo
           songImages.srcSleeve.length >= 1
-            ? artistImgsToDisplay.push(getRandomArrayItem(songImages.srcSleeve))
-            : // ? console.log(
-              //     "RANDOM SLEEVE IMAGE",
-              //     getRandomArrayItem(songImages.srcSleeve)
-              //   )
-              consoleWarning("no Sleeve images for song: " + song.title);
+            ? allImgsToDisplay.push(...songImages.srcSleeve)
+            : consoleWarning("no Sleeve images for song: " + song.title);
           // if disc array has a photo
           songImages.srcDisc.length >= 1
-            ? artistImgsToDisplay.push(getRandomArrayItem(songImages.srcDisc))
-            : // ? console.log(
-              //     "RANDOM DISK IMAGE",
-              //     getRandomArrayItem(songImages.srcDisc)
-              // )
-              consoleWarning("no Disk images for song: " + song.title);
+            ? allImgsToDisplay.push(...songImages.srcDisc)
+            : consoleWarning("no Disk images for song: " + song.title);
         }
       } else {
         if (track.type === "song") {
@@ -212,12 +199,8 @@
         if (artistImages != undefined) {
           // if src array has a photo
           artistImages.src.length >= 1
-            ? artistImgsToDisplay.push(getRandomArrayItem(artistImages.src))
-            : // ? console.log(
-              //     "RANDOM ARTIST IMAGE:",
-              //     getRandomArrayItem(artistImages.src)
-              //   )
-              consoleWarning("no artist images for " + song.artist);
+            ? allImgsToDisplay.push(...artistImages.src)
+            : consoleWarning("no artist images for " + song.artist);
         }
       }
 
@@ -240,9 +223,8 @@
         if (djImages != undefined) {
           // if src array has a photo
           djImages.src.length >= 1
-            ? djStationImgsToDisplay.push(getRandomArrayItem(djImages.src))
-            : // ? console.log("RANDOM DJ IMAGE:", getRandomArrayItem(djImages.src))
-              consoleWarning("no dj images for " + track.dj);
+            ? allImgsToDisplay.push(...djImages.src)
+            : consoleWarning("no dj images for " + track.dj);
         }
       } else {
         //consoleWarning("no dj for trackId:"+track.trackId);
@@ -271,12 +253,8 @@
         if (stationImages != undefined) {
           // if src array has a photo
           stationImages.src.length >= 1
-            ? djStationImgsToDisplay.push(getRandomArrayItem(stationImages.src))
-            : // ? console.log(
-              //     "RANDOM STATION IMAGE:",
-              //     getRandomArrayItem(stationImages.src)
-              //   )
-              consoleWarning("no station images for " + track.station);
+            ? allImgsToDisplay.push(...stationImages.src)
+            : consoleWarning("no station images for " + track.station);
         }
       } else {
         consoleWarning(
@@ -304,32 +282,24 @@
         return array;
       }
 
+      // console.log("ALL IMAGES: ", allImgsToDisplay);
       // shuffel Artist images and DJ/Station images
-      artistImgsToDisplay = shuffle(artistImgsToDisplay);
-      djStationImgsToDisplay = shuffle(djStationImgsToDisplay);
+      allImgsToDisplay = shuffle(allImgsToDisplay);
+      // get three images from total
+      allImgsToDisplay = allImgsToDisplay.slice(0, 3);
 
-      // let totalImgCount =
-      //   surveyImgToDisplay.length +
-      //   artistImgsToDisplay.length +
-      //   djStationImgsToDisplay.length;
-      // console.log(totalImgCount + " out of 6 'SLOT TYPES' available");
-      let result = [];
-      if (surveyImgToDisplay.length === 1) {
-        result.push(surveyImgToDisplay[0]);
+      // if there is a survey img in final 3 images, move it to the front
+      // survey gets priority placement on the page
+      if (allImgsToDisplay.filter(img => typeof img === "object").length > 0) {
+        var index = allImgsToDisplay.indexOf(
+          allImgsToDisplay.filter(img => typeof img === "object")[0]
+        );
+        // remove survey obj from index
+        var surveyObj = allImgsToDisplay.splice(index, 1)[0];
+        // add back survey as the first img in Array
+        allImgsToDisplay.unshift(surveyObj.src);
       }
-      // Alternate artist and dj/station images
-      var j,
-        l = Math.min(artistImgsToDisplay.length, djStationImgsToDisplay.length);
-
-      for (j = 0; j < l; j++) {
-        result.push(artistImgsToDisplay[j], djStationImgsToDisplay[j]);
-      }
-      result.push(
-        ...artistImgsToDisplay.slice(l),
-        ...djStationImgsToDisplay.slice(l)
-      );
-
-      console.log("FINAL IMAGES", result.slice(0, 3));
+      console.log("FINAL 3 IMAGES", allImgsToDisplay);
     }
 
     function consoleWarning(msg) {

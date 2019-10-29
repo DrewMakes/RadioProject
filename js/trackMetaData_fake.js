@@ -39,12 +39,12 @@ var songTbl = [
 var surveyImageTbl = [
   // these survey images are shown on the day of year they were published
   {
-    date: "Oct 28",
+    date: "Oct 29",
     station: "CHUM",
     src: "images/surveys/CHUM_1971-01-02_2.jpg"
   },
   {
-    date: "Oct 28",
+    date: "Oct 29",
     station: "WABC",
     src: "images/surveys/1971Jan02WABCSurvey.jpg"
   },
