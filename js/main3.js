@@ -387,8 +387,10 @@
       audio1.muted = !audio1.muted;
       audio2.muted = !audio2.muted;
       if (audio1.muted === true) {
+        document.getElementById("root").style.visibility = "hidden";
         this.textContent = "Play";
       } else {
+        document.getElementById("root").style.visibility = "visible";
         this.textContent = "Mute";
         if (index == 0) {
           Mp3Queue(audio1, audio2, playlistData);
