@@ -44,19 +44,9 @@ var surveyImageTbl = [
     src: "images/surveys/CHUM_1971-01-02_2.jpg"
   },
   {
-    date: "Oct 29",
-    station: "WABC",
-    src: "images/surveys/1971Jan02WABCSurvey.jpg"
-  },
-  {
     date: "Feb 16",
-    station: "CHUM",
-    src: "images/surveys/CHUM_1971-02-16_2.jpg"
-  },
-  {
-    date: "Feb 16",
-    station: "WLS",
-    src: "images/surveys/WLSFeb16-71Survey.jpg"
+    station: "WKXY",
+    src: "/images/surveys/WKXY_1971-01-02_1.jpg"
   }
 ];
 
@@ -66,11 +56,11 @@ var songImageTbl = [
   {
     songId: 1,
     srcSleeve: [
-      "images/singles/fredapayne-bandofgold sleeve1.jpg",
-      "images/singles/fredapayne-bandofgold sleeve2.jpg",
-      "images/singles/freda-payne_band-of-gold sleeve3.jpg"
+      "images/sleeves/fredapayne-bandofgold sleeve1.jpg",
+      "images/sleeves/fredapayne-bandofgold sleeve2.jpg",
+      "images/sleeves/freda-payne_band-of-gold sleeve3.jpg"
     ],
-    srcDisc: ["freda-payne-band-of-gold vinyl.jpg"]
+    srcDisc: ["images/singles/freda-payne-band-of-gold vinyl.jpg"]
   },
   {
     songId: 15,
@@ -89,12 +79,12 @@ var songImageTbl = [
   },
   {
     songId: 272,
-    srcSleeve: ["images/singles/king_floyd-groove_me_sleeve1.jpg"],
+    srcSleeve: ["images/sleeves/king_floyd-groove_me_sleeve1.jpg"],
     srcDisc: ["images/singles/king-floyd-groove-me-1970-4.jpg"]
   },
   {
     songId: 274,
-    srcSleeve: [],
+    srcSleeve: ["images/sleeves/No_Matter_What_Badfinger sleeve1.jpg"],
     srcDisc: ["images/singles/badfinger-no-matter-what vinyl.jpg"]
   }
 ];
@@ -120,7 +110,7 @@ var artistImageTbl = [
   },
   {
     name: "Badfinger",
-    src: ["images/artists/bad that there is 2.jpg"]
+    src: []
   },
   {
     name: "Van Morrison",

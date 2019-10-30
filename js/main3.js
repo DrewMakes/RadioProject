@@ -61,17 +61,40 @@
         }, dur);
       }
       audio.play();
-      // if (audio === audio1) {
-      //   console.log("index:" + index, track.trackId, track.src, "(audio1)");
-      // } else {
-      //   console.log("index:" + index, track.trackId, track.src, "(audio2)");
-      // }
-      displayImages(track);
+      // collect array of src img URL's for this track
+      var arrayofImgSrc = getImgSrcs(track);
+      // wait to get height&width for each img
+      awaitAll(arrayofImgSrc, getHeightWidth).then(imgList => {
+        displayUi(imgList);
+      });
       index += 1;
     };
 
-    function displayImages(track) {
-      let surveyImgToDisplay = [];
+    function awaitAll(list, asyncFn) {
+      const promises = [];
+
+      list.forEach(x => {
+        promises.push(asyncFn(x));
+      });
+
+      return Promise.all(promises);
+    }
+
+    function getHeightWidth(imgSrc) {
+      return new Promise((resolve, reject) => {
+        let img = new Image();
+        img.onload = () =>
+          resolve({
+            src: img.src,
+            height: img.height,
+            width: img.width
+          });
+        img.onerror = reject;
+        img.src = imgSrc;
+      });
+    }
+
+    var getImgSrcs = function(track) {
       let allImgsToDisplay = [];
 
       var getSong = function(trackSongId) {
@@ -129,9 +152,6 @@
           surveyImagesForToday = surveyStationImagesForToday;
         } else {
         }
-        // surveyImgToDisplay.push(
-        //   getRandomArrayItem(surveyImagesForToday.map(survey => survey.src))
-        // );
         allImgsToDisplay.push(getRandomArrayItem(surveyImagesForToday));
       }
 
@@ -282,6 +302,7 @@
         return array;
       }
 
+      var totalImages = allImgsToDisplay.length;
       // console.log("ALL IMAGES: ", allImgsToDisplay);
       // shuffel Artist images and DJ/Station images
       allImgsToDisplay = shuffle(allImgsToDisplay);
@@ -299,8 +320,12 @@
         // add back survey as the first img in Array
         allImgsToDisplay.unshift(surveyObj.src);
       }
-      console.log("FINAL 3 IMAGES", allImgsToDisplay);
-    }
+      // console.log(
+      //   "FINAL " + allImgsToDisplay.length + " IMAGE(S) of " + totalImages,
+      //   allImgsToDisplay
+      // );
+      return allImgsToDisplay;
+    };
 
     function consoleWarning(msg) {
       if (logWarnings) {
