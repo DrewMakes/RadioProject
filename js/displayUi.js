@@ -1,4 +1,5 @@
 function displayUi(imgList) {
+  document.getElementById("root").innerHTML = "";
   console.log("IMAGES: ", imgList);
   for (var img of imgList) {
     show_image(img.src, img.width, img.height);
@@ -11,6 +12,5 @@ function show_image(src, width, height) {
   img.height = height;
   img.alt = src;
 
-  // This next line will just add it to the <body> tag
-  document.body.appendChild(img);
+  document.getElementById("root").appendChild(img);
 }
