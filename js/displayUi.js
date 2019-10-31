@@ -1,5 +1,25 @@
-var imgDivs = ["a", "b", "c", "d", "e"];
 function displayUi(imgList) {
+  var imgDivs = ["a", "b", "c", "d", "e"];
+
+  var getBiggestImgLocation = function(imgWidth, imgHeight) {
+    var imgAreas = [];
+    imgDivs.forEach(div => {
+      var divWidth = document.getElementsByClassName(div)[0].clientWidth;
+      var divHeight = document.getElementsByClassName(div)[0].clientHeight;
+      var imgSize = getImgSize(divWidth, divHeight, imgWidth, imgHeight);
+      imgAreas.push({
+        area: imgSize.imgWidth * imgSize.imgHeight,
+        imgWidth: imgSize.imgWidth,
+        imgHeight: imgSize.imgHeight,
+        div: div
+      });
+    });
+    let maxImgArea = imgAreas.reduce((max, imgArea) =>
+      max.area > imgArea.area ? max : imgArea
+    );
+    return maxImgArea;
+  };
+
   // clear img's
   imgDivs.forEach(div => {
     document.getElementsByClassName(div)[0].innerHTML = "";
@@ -7,7 +27,15 @@ function displayUi(imgList) {
 
   // console.log("IMAGES: ", imgList);
   for (let [index, img] of imgList.entries()) {
-    show_image(index, img.src, img.width, img.height);
+    var biggestImgLocation = getBiggestImgLocation(img.width, img.height);
+    var div = biggestImgLocation.div;
+    // remove div from list of options for next img
+    var usedDivIndex = imgDivs.indexOf(div);
+    imgDivs.splice(usedDivIndex, 1);
+    // img size to display
+    var newWidth = biggestImgLocation.imgWidth;
+    var newHeight = biggestImgLocation.imgHeight;
+    show_image(div, img.src, img.width, img.height, newWidth, newHeight);
   }
 }
 var getImgSize = function(divWidth, divHeight, imgWidth, imgHeight) {
@@ -22,25 +50,17 @@ var getImgSize = function(divWidth, divHeight, imgWidth, imgHeight) {
   }
   return { imgWidth, imgHeight };
 };
-function show_image(index, src, width, height) {
+
+function show_image(div, src, width, height, newWidth, newHeight) {
   var img = document.createElement("img");
   img.src = src;
   img.width = width;
   img.height = height;
   img.alt = src;
 
-  var divWidth = document.getElementsByClassName(imgDivs[index])[0].clientWidth;
-  var divHeight = document.getElementsByClassName(imgDivs[index])[0]
-    .clientHeight;
-
-  var imgSize = getImgSize(divWidth, divHeight, img.width, img.height);
-  console.log("old img", { width, height });
-  console.log("new img", imgSize);
-  console.log("div", divWidth, divHeight);
-
   // set img pixel size
-  img.style.width = "" + imgSize.imgWidth + "px";
-  img.style.height = "" + imgSize.imgHeight + "px";
+  img.style.width = "" + newWidth + "px";
+  img.style.height = "" + newHeight + "px";
 
-  document.getElementsByClassName(imgDivs[index])[0].appendChild(img);
+  document.getElementsByClassName(div)[0].appendChild(img);
 }
