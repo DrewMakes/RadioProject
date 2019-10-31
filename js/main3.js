@@ -387,10 +387,17 @@
       audio1.muted = !audio1.muted;
       audio2.muted = !audio2.muted;
       if (audio1.muted === true) {
-        document.getElementById("root").style.visibility = "hidden";
+        document.getElementsByClassName("box a")[0].style.visibility = "hidden";
+        document.getElementsByClassName("box b")[0].style.visibility = "hidden";
+        document.getElementsByClassName("box c")[0].style.visibility = "hidden";
         this.textContent = "Play";
       } else {
-        document.getElementById("root").style.visibility = "visible";
+        document.getElementsByClassName("box a")[0].style.visibility =
+          "visible";
+        document.getElementsByClassName("box b")[0].style.visibility =
+          "visible";
+        document.getElementsByClassName("box c")[0].style.visibility =
+          "visible";
         this.textContent = "Mute";
         if (index == 0) {
           Mp3Queue(audio1, audio2, playlistData);
