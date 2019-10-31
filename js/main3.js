@@ -379,7 +379,7 @@
   var getRandomArrayItem = function(array) {
     return array[Math.floor(Math.random() * array.length)];
   };
-
+  var imgDivs = ["a", "b", "c", "d", "e"];
   var button = document.getElementById("playButton");
   button.addEventListener(
     "click",
@@ -387,17 +387,14 @@
       audio1.muted = !audio1.muted;
       audio2.muted = !audio2.muted;
       if (audio1.muted === true) {
-        document.getElementsByClassName("box a")[0].style.visibility = "hidden";
-        document.getElementsByClassName("box b")[0].style.visibility = "hidden";
-        document.getElementsByClassName("box c")[0].style.visibility = "hidden";
+        imgDivs.forEach(div => {
+          document.getElementsByClassName(div)[0].style.visibility = "hidden";
+        });
         this.textContent = "Play";
       } else {
-        document.getElementsByClassName("box a")[0].style.visibility =
-          "visible";
-        document.getElementsByClassName("box b")[0].style.visibility =
-          "visible";
-        document.getElementsByClassName("box c")[0].style.visibility =
-          "visible";
+        imgDivs.forEach(div => {
+          document.getElementsByClassName(div)[0].style.visibility = "visible";
+        });
         this.textContent = "Mute";
         if (index == 0) {
           Mp3Queue(audio1, audio2, playlistData);
