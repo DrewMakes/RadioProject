@@ -136,7 +136,8 @@
         currentDate.getDate().toString();
       // get array of survey obj that match todays date.
       var surveyImagesForToday = surveyImageTbl.filter(
-        surveyImgObj => surveyImgObj.date === currentDate
+        surveyImgObj =>
+          surveyImgObj.date === currentDate && track.type === "song"
       );
       // check if any survey's for today exist
       if (surveyImagesForToday.length < 1) {
