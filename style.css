@@ -26,14 +26,20 @@ body {
 .a {
   grid-column: 1;
   grid-row: 1 / span 3;
+  display: flex;
+  justify-content: flex-end;
 }
 .b {
   grid-column: 2;
   grid-row: 1 / span 2;
+  display: flex;
+  justify-content: center;
 }
 .c {
   grid-column: 2 / span 2;
   grid-row: 3;
+  display: flex;
+  justify-content: center;
 }
 .d {
   grid-column: 3 / span 2;
@@ -49,9 +55,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-/* .center {
-  margin: auto;
-} */
 
 @media only screen and (max-width: 1200px) {
   .wrapper {
@@ -115,10 +118,12 @@ body {
     position: absolute;
     left: 100vw;
   }
+
   .c {
     grid-column: 1 / span 4;
     grid-row: 1 / span 4;
   }
+
   .f {
     grid-column: 2 / span 2;
     grid-row: 2 / span 2;
@@ -131,10 +136,21 @@ body {
   }
 }
 
+.c img:first-child {
+  margin: 0 auto;
+  text-align: center;
+}
+.b img:first-child {
+  margin: 0 auto;
+  text-align: center;
+}
 /* The switch - the box around the slider */
-
+.switcher {
+  white-space: nowrap;
+}
 .onoff {
   margin: 10px;
+  white-space: normal;
   display: inline-block;
 }
 .switch {
