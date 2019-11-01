@@ -11,6 +11,7 @@ function displayUi(imgList) {
         area: imgSize.imgWidth * imgSize.imgHeight,
         imgWidth: imgSize.imgWidth,
         imgHeight: imgSize.imgHeight,
+        widthMargin: imgSize.widthMargin,
         div: div
       });
     });
@@ -25,8 +26,7 @@ function displayUi(imgList) {
     document.getElementsByClassName(div)[0].innerHTML = "";
   });
 
-  // console.log("IMAGES: ", imgList);
-  for (let [index, img] of imgList.entries()) {
+  for (let img of imgList) {
     var biggestImgLocation = getBiggestImgLocation(img.width, img.height);
     var div = biggestImgLocation.div;
     // remove div from list of options for next img
@@ -35,7 +35,16 @@ function displayUi(imgList) {
     // img size to display
     var newWidth = biggestImgLocation.imgWidth;
     var newHeight = biggestImgLocation.imgHeight;
-    show_image(div, img.src, img.width, img.height, newWidth, newHeight);
+    var widthMargin = biggestImgLocation.widthMargin;
+    show_image(
+      div,
+      img.src,
+      img.width,
+      img.height,
+      newWidth,
+      newHeight,
+      widthMargin
+    );
   }
 }
 var getImgSize = function(divWidth, divHeight, imgWidth, imgHeight) {
@@ -48,10 +57,11 @@ var getImgSize = function(divWidth, divHeight, imgWidth, imgHeight) {
     var imgHeight = divHeight;
     var imgWidth = divHeight * imgAspectRatio;
   }
-  return { imgWidth, imgHeight };
+  var widthMargin = divWidth - imgWidth;
+  return { imgWidth, imgHeight, widthMargin };
 };
 
-function show_image(div, src, width, height, newWidth, newHeight) {
+function show_image(div, src, width, height, newWidth, newHeight, widthMargin) {
   var img = document.createElement("img");
   img.src = src;
   img.width = width;
@@ -61,6 +71,15 @@ function show_image(div, src, width, height, newWidth, newHeight) {
   // set img pixel size
   img.style.width = "" + newWidth + "px";
   img.style.height = "" + newHeight + "px";
+  // center ".b" and ".c" div imgs
+  if (div === "b" || div === "c") {
+    img.style.margin = "0 " + widthMargin / 2 + "px";
+  }
+  // top right img anchor for ".a" div
+  if (div === "a") {
+    console.log("got here", div);
+    img.style.marginLeft = "" + widthMargin + "px";
+  }
 
   document.getElementsByClassName(div)[0].appendChild(img);
 }
