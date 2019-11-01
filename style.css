@@ -45,7 +45,13 @@ body {
 }
 .f {
   grid-column: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+/* .center {
+  margin: auto;
+} */
 
 @media only screen and (max-width: 1200px) {
   .wrapper {
