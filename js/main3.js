@@ -14,9 +14,10 @@
   ];
   //  the tracks are muted
   var audio1 = new Audio();
-  audio1.muted = true;
   var audio2 = new Audio();
-  audio2.muted = true;
+  let playStatus = false;
+  var clickSound = new Audio();
+  clickSound.src = "tracks/Mouse Click.mp3";
   // time elapsed since page load
   var timeAtLoad = new Date();
   // track index intialized
@@ -60,7 +61,9 @@
           playNextTrack(audio1);
         }, dur);
       }
+
       audio.play();
+
       // collect array of src img URL's for this track
       var arrayofImgSrc = getImgSrcs(track);
       // wait to get height&width for each img
@@ -385,18 +388,30 @@
   button.addEventListener(
     "click",
     function(e) {
-      audio1.muted = !audio1.muted;
-      audio2.muted = !audio2.muted;
-      if (audio1.muted === true) {
+      clickSound.play();
+      playStatus = !playStatus;
+      if (!playStatus) {
+        audio1.volume = 1;
+        audio2.volume = 1;
+        adjustVolume(audio1, 0);
+        adjustVolume(audio2, 0);
+        document.getElementsByClassName("needle")[0].classList.remove("onAnim");
+        document.getElementsByClassName("needle")[0].classList.add("offAnim");
         imgDivs.forEach(div => {
           document.getElementsByClassName(div)[0].style.visibility = "hidden";
         });
-        this.textContent = "Play";
       } else {
+        audio1.volume = 0;
+        audio2.volume = 0;
+        adjustVolume(audio1, 1);
+        adjustVolume(audio2, 1);
+        document
+          .getElementsByClassName("needle")[0]
+          .classList.remove("offAnim");
+        document.getElementsByClassName("needle")[0].classList.add("onAnim");
         imgDivs.forEach(div => {
           document.getElementsByClassName(div)[0].style.visibility = "visible";
         });
-        this.textContent = "Mute";
         if (index == 0) {
           Mp3Queue(audio1, audio2, playlistData);
         }

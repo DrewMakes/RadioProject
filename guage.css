@@ -1,0 +1,82 @@
+#guage {
+  display: inline-block;
+  position: relative;
+  background-color: black;
+  width: 200px;
+  height: 130px;
+}
+/* Hide default HTML checkbox */
+#guage input {
+  display: none;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.null {
+  display: inline-block;
+  position: absolute;
+  top: -25px;
+}
+.on,
+.off {
+  display: inline-block;
+  position: absolute;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  top: 70px;
+}
+.on {
+  left: 10px;
+}
+.off {
+  left: 155px;
+}
+.needleball {
+  display: inline-block;
+  position: absolute;
+  z-index: 3;
+  width: 25px;
+  height: 25px;
+  background: rgb(255, 255, 255);
+  border-radius: 50%;
+  left: 90px;
+  top: 116px;
+}
+#guage .needle {
+  width: 7px;
+  height: 80px;
+  background: #e30f0f;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 100%;
+  border-top-right-radius: 100%;
+  display: inline-block;
+  left: 100px;
+  position: absolute;
+  top: 50px;
+  transform: rotate(70deg);
+  transform-origin: bottom;
+}
+.onAnim {
+  -webkit-animation: on 1s cubic-bezier(0, 0.98, 0.56, 1.01) forwards;
+}
+.offAnim {
+  -webkit-animation: off 1s forwards;
+}
+@-webkit-keyframes on {
+  0% {
+    transform: rotate(70deg);
+  }
+  100% {
+    transform: rotate(-70deg);
+  }
+}
+@-webkit-keyframes off {
+  0% {
+    transform: rotate(-70deg);
+  }
+  100% {
+    transform: rotate(70deg);
+  }
+}
