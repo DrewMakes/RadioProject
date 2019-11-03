@@ -4,27 +4,33 @@
     <title></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--
-  <link rel="stylesheet" href="css/main.css" />
-  --></head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="gauge.css" />
+  </head>
   <body>
-    <article class="player">
-      <h1>Music Player</h1>
-      <h2>
-        Play/Mute don't autoplay...delay start of initial track at click, calc
-        offset
-      </h2>
-      <button id="playButton">Play</button>
-
-      <!--
-    We use two audios. The next track always plays on the other audio.
-    This way two tracks can play at once, such as starting a new song
-    on the fade of the current one.
-  -->
-      <audio id="audioId1"></audio>
-      <audio id="audioId2"></audio>
-    </article>
+    <div class="wrapper">
+      <div class="a"></div>
+      <div class="b"></div>
+      <div class="c"></div>
+      <div class="d"></div>
+      <div class="e"></div>
+      <div class="f">
+        <label id="gauge" for="playButton">
+          <input type="checkbox" id="playButton" />
+          <span class="null">
+            <span class="on">ON</span>
+            <span class="off">OFF</span>
+            <span class="needleball"></span>
+            <span class="needle"></span>
+          </span>
+        </label>
+      </div>
+    </div>
 
     <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/displayUi.js" type="text/javascript"></script>
+    <script src="js/volume.js" type="text/javascript"></script>
+    <script src="js/trackData_fake.js" type="text/javascript"></script>
+    <script src="js/trackMetaData_fake.js" type="text/javascript"></script>
   </body>
 </html>
