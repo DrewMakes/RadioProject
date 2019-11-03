@@ -1,4 +1,4 @@
-#guage {
+#gauge {
   cursor: pointer;
   display: inline-block;
   position: relative;
@@ -7,7 +7,7 @@
   height: 130px;
 }
 /* Hide default HTML checkbox */
-#guage input {
+#gauge input {
   display: none;
   opacity: 0;
   width: 0;
@@ -44,7 +44,7 @@
   left: 90px;
   top: 116px;
 }
-#guage .needle {
+#gauge .needle {
   width: 7px;
   height: 80px;
   background: #e30f0f;

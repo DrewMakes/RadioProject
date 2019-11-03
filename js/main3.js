@@ -17,7 +17,7 @@
   var audio2 = new Audio();
   let playStatus = false;
   var clickSound = new Audio();
-  clickSound.src = "tracks/Mouse Click.mp3";
+  clickSound.src = "tracks/radio click.mp3";
   // time elapsed since page load
   var timeAtLoad = new Date();
   // track index intialized
@@ -388,19 +388,21 @@
   button.addEventListener(
     "click",
     function(e) {
-      clickSound.play();
       playStatus = !playStatus;
       if (!playStatus) {
         audio1.volume = 1;
         audio2.volume = 1;
         adjustVolume(audio1, 0);
-        adjustVolume(audio2, 0);
+        adjustVolume(audio2, 0).then(() => {
+          clickSound.play();
+        });
         document.getElementsByClassName("needle")[0].classList.remove("onAnim");
         document.getElementsByClassName("needle")[0].classList.add("offAnim");
         imgDivs.forEach(div => {
           document.getElementsByClassName(div)[0].style.visibility = "hidden";
         });
       } else {
+        clickSound.play();
         audio1.volume = 0;
         audio2.volume = 0;
         adjustVolume(audio1, 1);
