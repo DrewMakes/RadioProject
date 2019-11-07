@@ -232,7 +232,3 @@ function consoleWarning(msg) {
     console.warn("WARNING: " + msg);
   }
 }
-
-var getRandomArrayItem = function(array) {
-  return array[Math.floor(Math.random() * array.length)];
-};

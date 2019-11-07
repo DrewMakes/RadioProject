@@ -1,6 +1,4 @@
-function displayUi(imgList) {
-  var imgDivs = ["a", "b", "c", "d", "e"];
-
+function displayUi(imgList, track) {
   var getBiggestImgLocation = function(imgWidth, imgHeight) {
     var imgAreas = [];
     imgDivs.forEach(div => {
@@ -19,13 +17,11 @@ function displayUi(imgList) {
     );
     return maxImgArea;
   };
-
-  // clear img's
-  imgDivs.forEach(div => {
-    document.getElementsByClassName(div)[0].innerHTML = "";
-  });
-
-  for (let img of imgList) {
+  function randomIntFromInterval(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  function displayImg(img) {
     var biggestImgLocation = getBiggestImgLocation(img.width, img.height);
     var div = biggestImgLocation.div;
     // remove div from list of options for next img
@@ -35,6 +31,39 @@ function displayUi(imgList) {
     var newWidth = biggestImgLocation.imgWidth;
     var newHeight = biggestImgLocation.imgHeight;
     show_image(div, img.src, img.width, img.height, newWidth, newHeight);
+  }
+
+  var imgDivs = ["a", "b", "c", "d", "e"];
+  // clear img's
+  imgDivs.forEach(div => {
+    document.getElementsByClassName(div)[0].innerHTML = "";
+  });
+  if (track.type === "song") {
+    // Display first img quickly
+    setTimeout(() => {
+      if (imgList[0] !== undefined) {
+        displayImg(imgList[0]);
+        imgList.shift();
+      }
+    }, randomIntFromInterval(300, 600));
+
+    //delay second and third img display
+    (function theLoop(data, i) {
+      setTimeout(() => {
+        let img = imgList[i - 1];
+        if (img !== undefined) {
+          displayImg(img);
+        }
+        if (--i) {
+          // If i > 0, keep going
+          theLoop(data, i); // Call the loop again
+        }
+      }, randomIntFromInterval(2000, 4000));
+    })(imgList, imgList.length);
+  } else {
+    // display one img for non song track
+    var img = getRandomArrayItem(imgList);
+    setTimeout(() => displayImg(img), randomIntFromInterval(300, 600));
   }
 }
 var getImgSize = function(divWidth, divHeight, imgWidth, imgHeight) {
@@ -62,4 +91,8 @@ function show_image(div, src, width, height, newWidth, newHeight) {
   img.style.height = "" + newHeight + "px";
 
   document.getElementsByClassName(div)[0].appendChild(img);
+}
+function sleep(millisecondsToWait) {
+  var now = new Date().getTime();
+  while (new Date().getTime() < now + millisecondsToWait) {}
 }

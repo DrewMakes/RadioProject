@@ -66,7 +66,7 @@
       var arrayofImgSrc = getImgSrcs(track);
       // wait to get height&width for each img
       awaitAll(arrayofImgSrc, getHeightWidth).then(imgList => {
-        displayUi(imgList);
+        displayUi(imgList, track);
       });
       index += 1;
     };
