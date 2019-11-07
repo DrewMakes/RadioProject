@@ -30,7 +30,10 @@ function displayUi(imgList, track) {
     show_image(div, img.src, img.width, img.height, newWidth, newHeight);
   }
 
-  var imgDivs = ["a", "b", "c", "d", "e"];
+  // ----------
+  // DISPLAY
+  // ----------
+  var imgDivs = ["a", "b", "c", "f", "e"];
   // clear img's
   imgDivs.forEach(div => {
     document.getElementsByClassName(div)[0].innerHTML = "";

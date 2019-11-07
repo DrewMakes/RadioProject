@@ -9,13 +9,22 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="a"></div>
-      <div class="b"></div>
-      <div class="c"></div>
-      <div class="d"></div>
-      <div class="e"></div>
-      <div class="f">
-        <label id="gauge" for="playButton">
+      <div class="box a">a</div>
+      <div class="box b">b</div>
+      <div class="box c">c</div>
+      <div class="box d">
+        <label id="dial" for="playButton">
+          <input type="checkbox" id="playButton" />
+          <div class="circle">
+            <ul>
+              <li>off</li>
+              <li>on</li>
+            </ul>
+          </div>
+          <div id="overlay-top"></div>
+          <div id="overlay-bottom"></div>
+        </label>
+        <!-- <label id="gauge" for="playButton">
           <input type="checkbox" id="playButton" />
           <span class="null">
             <span class="on">ON</span>
@@ -23,7 +32,11 @@
             <span class="needleball"></span>
             <span class="needle"></span>
           </span>
-        </label>
+        </label> -->
+      </div>
+      <div class="box e">e</div>
+      <div class="box f">
+        f
       </div>
     </div>
 

@@ -128,7 +128,7 @@
     playNextTrack(audio1); // Start looping function
   };
 
-  var imgDivs = ["a", "b", "c", "d", "e"];
+  var imgDivs = ["a", "b", "c", "f", "e"];
   var button = document.getElementById("playButton");
   button.addEventListener(
     "click",
@@ -141,8 +141,8 @@
         adjustVolume(audio2, 0).then(() => {
           clickSound.play();
         });
-        document.getElementsByClassName("needle")[0].classList.remove("onAnim");
-        document.getElementsByClassName("needle")[0].classList.add("offAnim");
+        document.getElementsByClassName("circle")[0].classList.remove("onAnim");
+        document.getElementsByClassName("circle")[0].classList.add("offAnim");
         imgDivs.forEach(div => {
           document.getElementsByClassName(div)[0].style.visibility = "hidden";
         });
@@ -153,9 +153,9 @@
         adjustVolume(audio1, 1);
         adjustVolume(audio2, 1);
         document
-          .getElementsByClassName("needle")[0]
+          .getElementsByClassName("circle")[0]
           .classList.remove("offAnim");
-        document.getElementsByClassName("needle")[0].classList.add("onAnim");
+        document.getElementsByClassName("circle")[0].classList.add("onAnim");
         imgDivs.forEach(div => {
           document.getElementsByClassName(div)[0].style.visibility = "visible";
         });

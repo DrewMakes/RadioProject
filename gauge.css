@@ -1,83 +1,95 @@
-#gauge {
-  cursor: pointer;
-  display: inline-block;
+#dial {
   position: relative;
-  background-color: black;
-  width: 200px;
-  height: 130px;
+  width: 360px;
+  height: 300px;
+  border-top-right-radius: 45%;
+  border-bottom-right-radius: 45%;
+  background: rgba(255, 0, 0, 0.53);
+  z-index: 10000;
 }
-/* Hide default HTML checkbox */
-#gauge input {
+#dial input {
   display: none;
   opacity: 0;
   width: 0;
   height: 0;
 }
-.null {
-  display: inline-block;
+.circle {
   position: absolute;
-  top: -25px;
-}
-.on,
-.off {
-  display: inline-block;
-  position: absolute;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  top: 70px;
-}
-.on {
-  left: 10px;
-}
-.off {
-  left: 155px;
-}
-.needleball {
-  display: inline-block;
-  position: absolute;
-  z-index: 3;
-  width: 25px;
-  height: 25px;
-  background: rgb(255, 255, 255);
+  left: 60px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
-  left: 90px;
-  top: 116px;
+  background: #093b62;
+
+  box-shadow: inset 0px 0px 30px rgba(249, 0, 0, 0.913);
+  -webkit-box-shadow: inset 0px 0px 30px rgba(3, 230, 3, 0.3);
+
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
-#gauge .needle {
-  width: 7px;
-  height: 80px;
-  background: #e30f0f;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 100%;
-  border-top-right-radius: 100%;
-  display: inline-block;
-  left: 100px;
+.circle li {
   position: absolute;
-  top: 50px;
-  transform: rotate(70deg);
-  transform-origin: bottom;
+  width: 50px;
+  height: 40px;
+  /* border-radius: 50%; */
+  background: white;
+  list-style: none;
+  text-align: center;
+  font: 20px/50px Helvetica, Arial, sans-serif;
+}
+.circle li:nth-child(1) {
+  top: 240px;
+  left: 90px;
+}
+
+.circle li:nth-child(2) {
+  top: 185px;
+  left: 22px;
+  -webkit-transform: rotate(-100deg);
+  -moz-transform: rotate(-100deg);
+  -ms-transform: rotate(-100deg);
+  -o-transform: rotate(-100deg);
+  transform: rotate(-100deg);
+}
+#overlay-top,
+#overlay-bottom {
+  border-color: rgb(0, 0, 0);
+  border-style: solid;
+  border-radius: 5px;
+  position: absolute;
+  left: 0px;
+  width: 50px;
+  height: 38px;
+  z-index: 99;
+}
+#overlay-top {
+  top: 0;
+  border-top-width: 20px;
+  border-left-width: 150px;
+  border-right-width: 65px;
+  border-bottom-width: 95px;
+}
+#overlay-bottom {
+  bottom: 0px;
+  border-top-width: 95px;
+  border-left-width: 150px;
+  border-right-width: 65px;
+  border-bottom-width: 20px;
 }
 .onAnim {
-  -webkit-animation: on 1s cubic-bezier(0, 0.98, 0.56, 1.01) forwards;
+  -webkit-transform: rotate(100deg);
+  -moz-transform: rotate(100deg);
+  -ms-transform: rotate(100deg);
+  -o-transform: rotate(100deg);
+  transform: rotate(100deg);
 }
 .offAnim {
-  -webkit-animation: off 1s forwards;
-}
-@-webkit-keyframes on {
-  0% {
-    transform: rotate(70deg);
-  }
-  100% {
-    transform: rotate(-70deg);
-  }
-}
-@-webkit-keyframes off {
-  0% {
-    transform: rotate(-70deg);
-  }
-  100% {
-    transform: rotate(70deg);
-  }
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
