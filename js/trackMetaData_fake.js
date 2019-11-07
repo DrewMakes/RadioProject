@@ -147,12 +147,12 @@ var stationImageTbl = [
   // is playing
   {
     name: "CHUM",
-    src: ["images/stations/1050chum-rainbow-1971.jpg"]
+    src: ["images/stations/1050chum-rainbow-1971.jpg"],
+    freq: 600
   },
   {
     name: "WABC",
-    src: ["images/stations/WABC-Lobby 1971.jpg"]
+    src: ["images/stations/WABC-Lobby 1971.jpg"],
+    freq: 1200
   }
 ];
-
-var newsImage = "BREAKING RETRO NEWS";
