@@ -17,10 +17,7 @@ function displayUi(imgList, track) {
     );
     return maxImgArea;
   };
-  function randomIntFromInterval(min, max) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
+
   function displayImg(img) {
     var biggestImgLocation = getBiggestImgLocation(img.width, img.height);
     var div = biggestImgLocation.div;
@@ -61,7 +58,7 @@ function displayUi(imgList, track) {
       }, randomIntFromInterval(2000, 4000));
     })(imgList, imgList.length);
   } else {
-    // display one img for non song track
+    // display one img for non-song track
     var img = getRandomArrayItem(imgList);
     setTimeout(() => displayImg(img), randomIntFromInterval(300, 600));
   }

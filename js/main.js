@@ -71,16 +71,6 @@
       index += 1;
     };
 
-    function awaitAll(list, asyncFn) {
-      const promises = [];
-
-      list.forEach(x => {
-        promises.push(asyncFn(x));
-      });
-
-      return Promise.all(promises);
-    }
-
     function getHeightWidth(imgSrc) {
       return new Promise((resolve, reject) => {
         let img = new Image();
