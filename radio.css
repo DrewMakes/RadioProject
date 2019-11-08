@@ -4,9 +4,7 @@
   height: 200px;
   border-top-right-radius: 45%;
   border-bottom-right-radius: 45%;
-  /* background: rgba(255, 0, 0, 0.53); */
   z-index: 10000;
-  /* transform: scale(0.5); */
 }
 #dial input {
   display: none;
@@ -56,7 +54,8 @@
 #overlay-bottom {
   border-color: rgb(0, 0, 0);
   border-style: solid;
-  border-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
   position: absolute;
   left: 0px;
   width: 35px;
@@ -91,8 +90,29 @@
   -o-transform: rotate(0deg);
   transform: rotate(0deg);
 }
-.am {
-  /* width: 100%; */
+.bar {
   background: red;
   flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+.am:before {
+  content: "";
+  background: red;
+  margin-top: 10px;
+  width: 6px;
+  height: 150%;
+  z-index: 100;
+}
+.am {
+  background: green;
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+}
+.pm {
+  background: blue;
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
 }
