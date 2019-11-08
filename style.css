@@ -32,7 +32,7 @@ body {
 }
 .b {
   grid-column: 2;
-  grid-row: 1 / span 2;
+  grid-row: 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,11 +45,13 @@ body {
   align-items: center;
 }
 .d {
-  grid-column: 3 / span 2;
+  grid-column: 2 / span 3;
   grid-row: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  padding-right: 45px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .e {
   grid-column: 4;
@@ -60,6 +62,7 @@ body {
 }
 .f {
   grid-column: 3;
+  grid-row: 2;
   display: flex;
   justify-content: center;
   align-items: center;

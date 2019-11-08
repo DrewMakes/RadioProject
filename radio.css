@@ -1,11 +1,12 @@
 #dial {
   position: relative;
-  width: 360px;
-  height: 300px;
+  width: 230px;
+  height: 200px;
   border-top-right-radius: 45%;
   border-bottom-right-radius: 45%;
-  background: rgba(255, 0, 0, 0.53);
+  /* background: rgba(255, 0, 0, 0.53); */
   z-index: 10000;
+  /* transform: scale(0.5); */
 }
 #dial input {
   display: none;
@@ -15,38 +16,35 @@
 }
 .circle {
   position: absolute;
-  left: 60px;
-  width: 300px;
-  height: 300px;
+  left: 30px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background: #093b62;
-
-  box-shadow: inset 0px 0px 30px rgba(249, 0, 0, 0.913);
-  -webkit-box-shadow: inset 0px 0px 30px rgba(3, 230, 3, 0.3);
-
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
 }
 .circle li {
   position: absolute;
-  width: 50px;
-  height: 40px;
+  width: 35px;
+  height: 27px;
   /* border-radius: 50%; */
   background: white;
   list-style: none;
   text-align: center;
-  font: 20px/50px Helvetica, Arial, sans-serif;
+  font: 15px/26px Helvetica, Arial, sans-serif;
+  font-weight: bold;
 }
 .circle li:nth-child(1) {
-  top: 240px;
-  left: 90px;
+  top: 152px;
+  left: 60px;
 }
 
 .circle li:nth-child(2) {
-  top: 185px;
+  top: 120px;
   left: 22px;
   -webkit-transform: rotate(-100deg);
   -moz-transform: rotate(-100deg);
@@ -61,22 +59,22 @@
   border-radius: 5px;
   position: absolute;
   left: 0px;
-  width: 50px;
-  height: 38px;
+  width: 35px;
+  height: 28px;
   z-index: 99;
 }
 #overlay-top {
   top: 0;
   border-top-width: 20px;
-  border-left-width: 150px;
-  border-right-width: 65px;
-  border-bottom-width: 95px;
+  border-left-width: 90px;
+  border-right-width: 35px;
+  border-bottom-width: 55px;
 }
 #overlay-bottom {
   bottom: 0px;
-  border-top-width: 95px;
-  border-left-width: 150px;
-  border-right-width: 65px;
+  border-top-width: 55px;
+  border-left-width: 90px;
+  border-right-width: 35px;
   border-bottom-width: 20px;
 }
 .onAnim {
@@ -92,4 +90,9 @@
   -ms-transform: rotate(0deg);
   -o-transform: rotate(0deg);
   transform: rotate(0deg);
+}
+.am {
+  /* width: 100%; */
+  background: red;
+  flex-grow: 1;
 }
