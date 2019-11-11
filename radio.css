@@ -92,7 +92,6 @@
 }
 .bar {
   position: relative;
-  background: red;
   flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
@@ -142,22 +141,22 @@
 .five-hundred-fifty:before {
   content: "550";
   position: absolute;
-  transform: translate(-9px, -25px);
+  transform: translate(-7px, -25px);
 }
 .six-hundred:before {
   content: "600";
   position: absolute;
-  transform: translate(-9px, -25px);
+  transform: translate(-8px, -25px);
 }
 .seven-hundred:before {
   content: "700";
   position: absolute;
-  transform: translate(-9px, -25px);
+  transform: translate(-8px, -25px);
 }
 .eight-hundred:before {
   content: "800";
   position: absolute;
-  transform: translate(-9px, -25px);
+  transform: translate(-8px, -25px);
 }
 .one-thousand:before {
   content: "1000";
