@@ -1,7 +1,7 @@
 #dial {
   position: relative;
-  width: 230px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border-top-right-radius: 45%;
   border-bottom-right-radius: 45%;
   z-index: 10000;
@@ -13,10 +13,10 @@
   height: 0;
 }
 .circle {
-  position: absolute;
-  left: 30px;
-  width: 200px;
-  height: 200px;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  flex-basis: 100%;
   border-radius: 50%;
   background: #093b62;
   -webkit-transition: all 1s ease;
@@ -27,28 +27,30 @@
 }
 .circle li {
   position: absolute;
-  width: 35px;
-  height: 27px;
-  /* border-radius: 50%; */
+  width: 28px;
+  height: 20px;
   background: white;
   list-style: none;
   text-align: center;
-  font: 15px/26px Helvetica, Arial, sans-serif;
+  font: 15px/20px Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
 .circle li:nth-child(1) {
-  top: 152px;
-  left: 60px;
+  top: 111px;
+  left: 30px;
 }
 
 .circle li:nth-child(2) {
-  top: 120px;
-  left: 22px;
-  -webkit-transform: rotate(-100deg);
-  -moz-transform: rotate(-100deg);
-  -ms-transform: rotate(-100deg);
-  -o-transform: rotate(-100deg);
-  transform: rotate(-100deg);
+  top: 83px;
+  left: 10px;
+  -webkit-transform: rotate(-75deg);
+  -moz-transform: rotate(-75deg);
+  -ms-transform: rotate(-75deg);
+  -o-transform: rotate(-75deg);
+  transform: rotate(-75deg);
+}
+.labels {
+  margin: 0;
 }
 #overlay-top,
 #overlay-bottom {
@@ -57,31 +59,31 @@
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
   position: absolute;
-  left: 0px;
-  width: 35px;
-  height: 28px;
-  z-index: 99;
+  left: -30px;
+  width: 28px;
+  height: 20px;
+  z-index: 9999;
 }
 #overlay-top {
   top: 0;
   border-top-width: 20px;
-  border-left-width: 90px;
+  border-left-width: 60px;
   border-right-width: 35px;
-  border-bottom-width: 55px;
+  border-bottom-width: 45px;
 }
 #overlay-bottom {
   bottom: 0px;
-  border-top-width: 55px;
-  border-left-width: 90px;
+  border-top-width: 45px;
+  border-left-width: 60px;
   border-right-width: 35px;
   border-bottom-width: 20px;
 }
 .onAnim {
-  -webkit-transform: rotate(100deg);
-  -moz-transform: rotate(100deg);
-  -ms-transform: rotate(100deg);
-  -o-transform: rotate(100deg);
-  transform: rotate(100deg);
+  -webkit-transform: rotate(75deg);
+  -moz-transform: rotate(75deg);
+  -ms-transform: rotate(75deg);
+  -o-transform: rotate(75deg);
+  transform: rotate(75deg);
 }
 .offAnim {
   -webkit-transform: rotate(0deg);
@@ -95,6 +97,7 @@
   flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
+  margin-right: 30px;
 }
 .am::before {
   content: "";
@@ -104,7 +107,7 @@
   width: 6px;
   height: 90%;
   z-index: 100;
-  transform: translateX(2rem);
+  transform: translateX(-4rem);
 }
 .am {
   background: rgb(18, 18, 18);

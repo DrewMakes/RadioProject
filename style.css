@@ -48,10 +48,10 @@ body {
   grid-column: 2 / span 3;
   grid-row: 1;
   display: flex;
-  justify-content: flex-end;
-  padding-right: 45px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-right: 35px;
 }
 .e {
   grid-column: 4;
