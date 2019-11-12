@@ -22,6 +22,7 @@
   var timeAtLoad = new Date();
   // track index intialized
   let index = 0;
+  let currentStation;
 
   var Mp3Queue = function(audio1, audio2, playlist) {
     console.log("Main func start");
@@ -62,23 +63,7 @@
 
       audio.play();
 
-      // Move radio pin based on station
-      if (getStation(track)) {
-        var station = getStation(track);
-        console.log(station.name);
-        var pinElement = document.getElementsByClassName("pin")[0];
-        var oldStation = pinElement.classList.item(1);
-
-        // var sameStation = document.getElementsByClassName("pin")[0].classList.contains(station.name)
-        if (oldStation !== station.name) {
-          pinElement.classList.remove(oldStation);
-          pinElement.classList.add(station.name);
-        }
-      } else {
-        consoleWarning(
-          "no station images for this track, trackTbl[...].station = null"
-        );
-      }
+      tuneRadio(track, playStatus);
 
       // collect array of src img URL's for this track
       var arrayofImgSrc = getImgSrcs(track);
@@ -170,6 +155,7 @@
         audio2.volume = 0;
         adjustVolume(audio1, 1);
         adjustVolume(audio2, 1);
+        movePin(currentStation, playStatus);
         document
           .getElementsByClassName("circle")[0]
           .classList.remove("offAnim");

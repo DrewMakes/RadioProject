@@ -20,6 +20,9 @@
 .WABC {
   transform: translateX(20.7rem);
 }
+.WKNR {
+  transform: translateX(10.7rem);
+}
 
 #dial {
   position: relative;

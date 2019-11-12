@@ -96,3 +96,51 @@ function sleep(millisecondsToWait) {
   var now = new Date().getTime();
   while (new Date().getTime() < now + millisecondsToWait) {}
 }
+
+var tuneRadio = function(track, playStatus) {
+  // update current station
+  station = getStation(track);
+  if (station) {
+    currentStation = station.name;
+  } else {
+    consoleWarning("There is no Station entry for " + track.station);
+  }
+
+  //likely first time play pressed and currentSong has no station
+  //find station from "previous" songs which were skipped
+  if (currentStation === undefined) {
+    //find most recent track that was skipped that has a station listed
+    var itemsToIterate = playlistData.slice(0, index).reverse();
+    console.log(itemsToIterate);
+    var prevStation = function() {
+      for (var i = 0, len = itemsToIterate.length; i < len; i++) {
+        var item = itemsToIterate[i];
+        let prevTrack = trackTbl.filter(
+          track => track.trackId === item.trackId
+        )[0];
+        if (prevTrack.station) {
+          console.log("PREV TRACK", prevTrack);
+          return prevTrack.station;
+        }
+      }
+    };
+    currentStation = prevStation();
+  }
+  movePin(currentStation, playStatus);
+};
+
+var movePin = function(station, playStatus) {
+  // Move radio pin based on station
+  if (playStatus) {
+    var pinElement = document.getElementsByClassName("pin")[0];
+    var oldStation = pinElement.classList.item(1);
+    if (oldStation !== station) {
+      pinElement.classList.remove(oldStation);
+      pinElement.classList.add(station);
+    }
+  } else {
+    consoleWarning(
+      "no station images for this track, trackTbl[...].station = null"
+    );
+  }
+};

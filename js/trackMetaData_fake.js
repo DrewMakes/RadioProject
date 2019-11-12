@@ -152,5 +152,9 @@ var stationImageTbl = [
   {
     name: "WABC",
     src: ["images/stations/WABC-Lobby 1971.jpg"]
+  },
+  {
+    name: "WKNR",
+    src: []
   }
 ];
