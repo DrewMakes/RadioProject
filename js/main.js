@@ -63,7 +63,7 @@
 
       audio.play();
 
-      tuneRadio(track, currentStation, playlistData, index, playStatus);
+      tuneRadio(track, playlistData, index, playStatus);
 
       // collect array of src img URL's for this track
       var arrayofImgSrc = getImgSrcs(track);
@@ -129,6 +129,33 @@
     };
 
     playNextTrack(audio1); // Start looping function
+  };
+  var tuneRadio = function(track, playlistData, index, playStatus) {
+    station = getStation(track);
+    if (station) {
+      currentStation = station.name;
+    } else {
+      consoleWarning("There is no Station entry for " + track.station);
+    }
+    //likely first time play pressed and currentSong has no station
+    //find station from "previous" songs which were skipped
+    if (currentStation === undefined) {
+      //find most recent track that was skipped that has a station listed
+      var itemsToIterate = playlistData.slice(0, index).reverse();
+      var prevStation = function() {
+        for (var i = 0, len = itemsToIterate.length; i < len; i++) {
+          var item = itemsToIterate[i];
+          let prevTrack = trackTbl.filter(
+            track => track.trackId === item.trackId
+          )[0];
+          if (prevTrack.station) {
+            return prevTrack.station;
+          }
+        }
+      };
+      currentStation = prevStation();
+    }
+    movePin(currentStation, playStatus);
   };
 
   var imgDivs = ["a", "b", "c", "f", "e"];
