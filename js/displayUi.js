@@ -97,21 +97,24 @@ function sleep(millisecondsToWait) {
   while (new Date().getTime() < now + millisecondsToWait) {}
 }
 
-var tuneRadio = function(track, playStatus) {
-  // update current station
+var tuneRadio = function(
+  track,
+  currentStation,
+  playlistData,
+  index,
+  playStatus
+) {
   station = getStation(track);
   if (station) {
     currentStation = station.name;
   } else {
     consoleWarning("There is no Station entry for " + track.station);
   }
-
   //likely first time play pressed and currentSong has no station
   //find station from "previous" songs which were skipped
   if (currentStation === undefined) {
     //find most recent track that was skipped that has a station listed
     var itemsToIterate = playlistData.slice(0, index).reverse();
-    console.log(itemsToIterate);
     var prevStation = function() {
       for (var i = 0, len = itemsToIterate.length; i < len; i++) {
         var item = itemsToIterate[i];
@@ -119,7 +122,6 @@ var tuneRadio = function(track, playStatus) {
           track => track.trackId === item.trackId
         )[0];
         if (prevTrack.station) {
-          console.log("PREV TRACK", prevTrack);
           return prevTrack.station;
         }
       }

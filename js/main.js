@@ -63,7 +63,7 @@
 
       audio.play();
 
-      tuneRadio(track, playStatus);
+      tuneRadio(track, currentStation, playlistData, index, playStatus);
 
       // collect array of src img URL's for this track
       var arrayofImgSrc = getImgSrcs(track);
