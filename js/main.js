@@ -62,6 +62,24 @@
 
       audio.play();
 
+      // Move radio pin based on station
+      if (getStation(track)) {
+        var station = getStation(track);
+        console.log(station.name);
+        var pinElement = document.getElementsByClassName("pin")[0];
+        var oldStation = pinElement.classList.item(1);
+
+        // var sameStation = document.getElementsByClassName("pin")[0].classList.contains(station.name)
+        if (oldStation !== station.name) {
+          pinElement.classList.remove(oldStation);
+          pinElement.classList.add(station.name);
+        }
+      } else {
+        consoleWarning(
+          "no station images for this track, trackTbl[...].station = null"
+        );
+      }
+
       // collect array of src img URL's for this track
       var arrayofImgSrc = getImgSrcs(track);
       // wait to get height&width for each img

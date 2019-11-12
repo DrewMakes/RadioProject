@@ -147,12 +147,10 @@ var stationImageTbl = [
   // is playing
   {
     name: "CHUM",
-    src: ["images/stations/1050chum-rainbow-1971.jpg"],
-    freq: 600
+    src: ["images/stations/1050chum-rainbow-1971.jpg"]
   },
   {
     name: "WABC",
-    src: ["images/stations/WABC-Lobby 1971.jpg"],
-    freq: 1200
+    src: ["images/stations/WABC-Lobby 1971.jpg"]
   }
 ];
