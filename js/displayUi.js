@@ -94,7 +94,7 @@ function show_image(div, src, width, height, newWidth, newHeight) {
     "--rotation-degree",
     randomIntFromInterval(-80, 80) + "deg"
   );
-  img.style.setProperty("--left-right", randomIntFromInterval(-50, 50) + "%");
+  img.style.setProperty("--left-right", randomIntFromInterval(-100, 100) + "%");
 
   document.getElementsByClassName(div)[0].appendChild(img);
 }
