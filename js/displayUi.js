@@ -107,9 +107,5 @@ var movePin = function(station, playStatus) {
       pinElement.classList.remove(oldStation);
       pinElement.classList.add(station);
     }
-  } else {
-    consoleWarning(
-      "no station images for this track, trackTbl[...].station = null"
-    );
   }
 };

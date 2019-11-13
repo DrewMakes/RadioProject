@@ -163,22 +163,22 @@
 .five-hundred-fifty:before {
   content: "550";
   position: absolute;
-  transform: translate(-7px, -25px);
+  transform: translate(-9px, -25px);
 }
 .six-hundred:before {
   content: "600";
   position: absolute;
-  transform: translate(-8px, -25px);
+  transform: translate(-9px, -25px);
 }
 .seven-hundred:before {
   content: "700";
   position: absolute;
-  transform: translate(-8px, -25px);
+  transform: translate(-9px, -25px);
 }
 .eight-hundred:before {
   content: "800";
   position: absolute;
-  transform: translate(-8px, -25px);
+  transform: translate(-9px, -25px);
 }
 .one-thousand:before {
   content: "1000";
@@ -268,57 +268,57 @@
 .eighty-eight:before {
   content: "88";
   position: absolute;
-  transform: translate(-4px, 5px);
+  transform: translate(-6px, 5px);
 }
 .ninety:before {
   content: "90";
   position: absolute;
-  transform: translate(-4px, 5px);
+  transform: translate(-6px, 5px);
 }
 .ninety-two:before {
   content: "92";
   position: absolute;
-  transform: translate(-4px, 5px);
+  transform: translate(-6px, 5px);
 }
 .ninety-four:before {
   content: "94";
   position: absolute;
-  transform: translate(-3px, 5px);
+  transform: translate(-5px, 5px);
 }
 .ninety-six:before {
   content: "96";
   position: absolute;
-  transform: translate(-3px, 5px);
+  transform: translate(-5px, 5px);
 }
 .ninety-eight:before {
   content: "98";
   position: absolute;
-  transform: translate(-3px, 5px);
+  transform: translate(-5px, 5px);
 }
 .one-hundred:before {
   content: "100";
   position: absolute;
-  transform: translate(-11px, 5px);
+  transform: translate(-14px, 5px);
 }
 .one-hundred-two:before {
   content: "102";
   position: absolute;
-  transform: translate(-11px, 5px);
+  transform: translate(-13px, 5px);
 }
 .one-hundred-four:before {
   content: "104";
   position: absolute;
-  transform: translate(-10px, 5px);
+  transform: translate(-12px, 5px);
 }
 .one-hundred-six:before {
   content: "106";
   position: absolute;
-  transform: translate(-10px, 5px);
+  transform: translate(-12px, 5px);
 }
 .one-hundred-eight:before {
   content: "108";
   position: absolute;
-  transform: translate(-10px, 5px);
+  transform: translate(-12px, 5px);
 }
 .fm-text {
   font: 22px "Helvetica Narrow", "Arial Narrow", Tahoma, Arial, Helvetica,
