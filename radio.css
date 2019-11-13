@@ -32,12 +32,16 @@
   border-bottom-right-radius: 45%;
   z-index: 10000;
   cursor: pointer;
+  /* overflow: hidden; */
 }
 #dial input {
   display: none;
   opacity: 0;
   width: 0;
   height: 0;
+}
+.null {
+  overflow: hidden;
 }
 .circle {
   position: relative;

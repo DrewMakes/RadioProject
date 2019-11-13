@@ -89,6 +89,11 @@ function show_image(div, src, width, height, newWidth, newHeight) {
   // set img pixel size
   img.style.width = "" + newWidth + "px";
   img.style.height = "" + newHeight + "px";
+  // img.className += "image";
+  img.style.setProperty(
+    "--rotation-degree",
+    randomIntFromInterval(-80, 80) + "deg"
+  );
 
   document.getElementsByClassName(div)[0].appendChild(img);
 }

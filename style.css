@@ -2,6 +2,7 @@ body {
   height: 100vh;
   background: rgb(208, 208, 208);
   margin: 0;
+  overflow: hidden;
 }
 
 .wrapper {
@@ -49,9 +50,9 @@ body {
   grid-row: 1;
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: 5px;
-  margin-right: 35px;
+  margin-right: 10px;
 }
 .e {
   grid-column: 4;
@@ -155,7 +156,6 @@ body {
     color: white;
   }
   .bar {
-    /* visibility: hidden; */
     display: none !important;
   }
   #gauge {

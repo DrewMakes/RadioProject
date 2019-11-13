@@ -1,0 +1,39 @@
+/* set the default rotation, js sets this with .setProperty */
+:root {
+  --rotation-degree: -20deg;
+}
+
+.a img,
+.b img,
+.c img,
+.e img,
+.f img {
+  position: relative;
+  transform-origin: center center;
+  -webkit-animation: fly 0.5s ease forwards;
+  animation: fly 0.5s ease forwards;
+}
+@-webkit-keyframes fly {
+  0% {
+    transform: rotate(var(--rotation-degree));
+    left: 50%;
+    top: 100%;
+  }
+  100% {
+    transform: rotate(0deg);
+    left: 0;
+    top: 0;
+  }
+}
+@keyframes fly {
+  0% {
+    transform: rotate(var(--rotation-degree));
+    left: 50%;
+    top: 100%;
+  }
+  100% {
+    transform: rotate(0deg);
+    left: 0;
+    top: 0;
+  }
+}
