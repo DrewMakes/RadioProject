@@ -18,7 +18,7 @@
   0% {
     transform: rotate(var(--rotation-degree));
     left: var(--left-right);
-    top: 100%;
+    top: 200%;
   }
   100% {
     transform: rotate(0deg);
@@ -30,7 +30,7 @@
   0% {
     transform: rotate(var(--rotation-degree));
     left: var(--left-right);
-    top: 100%;
+    top: 200%;
   }
   100% {
     transform: rotate(0deg);
