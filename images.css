@@ -1,6 +1,7 @@
 /* set the default rotation, js sets this with .setProperty */
 :root {
   --rotation-degree: -20deg;
+  --left-right: 50%;
 }
 
 .a img,
@@ -16,7 +17,7 @@
 @-webkit-keyframes fly {
   0% {
     transform: rotate(var(--rotation-degree));
-    left: 50%;
+    left: var(--left-right);
     top: 100%;
   }
   100% {
@@ -28,7 +29,7 @@
 @keyframes fly {
   0% {
     transform: rotate(var(--rotation-degree));
-    left: 50%;
+    left: var(--left-right);
     top: 100%;
   }
   100% {
